@@ -1,0 +1,10 @@
+.venv/
+.env
+__pycache__/
+*.db
+memory_store.json
+verdicts_*.json
+intake_*.json
+shortlist_report.md
+review_memo.md
+sample_sales.csv
