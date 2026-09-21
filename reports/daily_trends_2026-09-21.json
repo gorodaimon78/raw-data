@@ -1,13 +1,83 @@
 {
   "date": "2026-09-21",
-  "generated_at_pkst": "2026-09-21 10:01:55 PKST (UTC+5)",
-  "generated_at_utc": "2026-09-21T05:01:55.434696+00:00",
+  "generated_at_pkst": "2026-09-21 10:59:02 PKST (UTC+5)",
+  "generated_at_utc": "2026-09-21T05:59:02.315953+00:00",
   "total_platforms": 8,
   "total_trends": 80,
   "platforms": {
     "Google": [
       {
         "rank": 1,
+        "title": "sharon stone",
+        "type": "Search Query / Trend",
+        "traffic_volume": "200+",
+        "description": "Trending search query on Google with 200+ searches in past 24h.",
+        "url": "https://trends.google.com/trending/rss?geo=US",
+        "published_at": "Sun, 20 Sep 2026 22:30:00 -0700",
+        "platform": "Google"
+      },
+      {
+        "rank": 2,
+        "title": "japan",
+        "type": "Search Query / Trend",
+        "traffic_volume": "200+",
+        "description": "Trending search query on Google with 200+ searches in past 24h.",
+        "url": "https://trends.google.com/trending/rss?geo=US",
+        "published_at": "Sun, 20 Sep 2026 22:30:00 -0700",
+        "platform": "Google"
+      },
+      {
+        "rank": 3,
+        "title": "new york",
+        "type": "Search Query / Trend",
+        "traffic_volume": "100+",
+        "description": "Trending search query on Google with 100+ searches in past 24h.",
+        "url": "https://trends.google.com/trending/rss?geo=US",
+        "published_at": "Sun, 20 Sep 2026 22:30:00 -0700",
+        "platform": "Google"
+      },
+      {
+        "rank": 4,
+        "title": "austin",
+        "type": "Search Query / Trend",
+        "traffic_volume": "500+",
+        "description": "Trending search query on Google with 500+ searches in past 24h.",
+        "url": "https://trends.google.com/trending/rss?geo=US",
+        "published_at": "Sun, 20 Sep 2026 22:30:00 -0700",
+        "platform": "Google"
+      },
+      {
+        "rank": 5,
+        "title": "asteroid impact",
+        "type": "Search Query / Trend",
+        "traffic_volume": "500+",
+        "description": "Trending search query on Google with 500+ searches in past 24h.",
+        "url": "https://trends.google.com/trending/rss?geo=US",
+        "published_at": "Sun, 20 Sep 2026 22:10:00 -0700",
+        "platform": "Google"
+      },
+      {
+        "rank": 6,
+        "title": "ff7 revelation",
+        "type": "Search Query / Trend",
+        "traffic_volume": "200+",
+        "description": "Trending search query on Google with 200+ searches in past 24h.",
+        "url": "https://trends.google.com/trending/rss?geo=US",
+        "published_at": "Sun, 20 Sep 2026 21:50:00 -0700",
+        "platform": "Google"
+      },
+      {
+        "rank": 7,
+        "title": "maya joint",
+        "type": "Search Query / Trend",
+        "traffic_volume": "100+",
+        "description": "Trending search query on Google with 100+ searches in past 24h.",
+        "url": "https://trends.google.com/trending/rss?geo=US",
+        "published_at": "Sun, 20 Sep 2026 21:50:00 -0700",
+        "platform": "Google"
+      },
+      {
+        "rank": 8,
         "title": "leon vs queretaro",
         "type": "Search Query / Trend",
         "traffic_volume": "100+",
@@ -17,7 +87,7 @@
         "platform": "Google"
       },
       {
-        "rank": 2,
+        "rank": 9,
         "title": "fernando mendoza",
         "type": "Search Query / Trend",
         "traffic_volume": "200+",
@@ -27,83 +97,13 @@
         "platform": "Google"
       },
       {
-        "rank": 3,
-        "title": "pat mahomes",
-        "type": "Search Query / Trend",
-        "traffic_volume": "500+",
-        "description": "Trending search query on Google with 500+ searches in past 24h.",
-        "url": "https://trends.google.com/trending/rss?geo=US",
-        "published_at": "Sun, 20 Sep 2026 21:00:00 -0700",
-        "platform": "Google"
-      },
-      {
-        "rank": 4,
-        "title": "spencer shrader",
-        "type": "Search Query / Trend",
-        "traffic_volume": "100+",
-        "description": "Trending search query on Google with 100+ searches in past 24h.",
-        "url": "https://trends.google.com/trending/rss?geo=US",
-        "published_at": "Sun, 20 Sep 2026 20:40:00 -0700",
-        "platform": "Google"
-      },
-      {
-        "rank": 5,
+        "rank": 10,
         "title": "ohio tornado warnings",
         "type": "Search Query / Trend",
         "traffic_volume": "500+",
         "description": "Trending search query on Google with 500+ searches in past 24h.",
         "url": "https://trends.google.com/trending/rss?geo=US",
         "published_at": "Sun, 20 Sep 2026 20:20:00 -0700",
-        "platform": "Google"
-      },
-      {
-        "rank": 6,
-        "title": "jonathan owens",
-        "type": "Search Query / Trend",
-        "traffic_volume": "200+",
-        "description": "Trending search query on Google with 200+ searches in past 24h.",
-        "url": "https://trends.google.com/trending/rss?geo=US",
-        "published_at": "Sun, 20 Sep 2026 20:20:00 -0700",
-        "platform": "Google"
-      },
-      {
-        "rank": 7,
-        "title": "jennifer garner",
-        "type": "Search Query / Trend",
-        "traffic_volume": "200+",
-        "description": "Trending search query on Google with 200+ searches in past 24h.",
-        "url": "https://trends.google.com/trending/rss?geo=US",
-        "published_at": "Sun, 20 Sep 2026 20:10:00 -0700",
-        "platform": "Google"
-      },
-      {
-        "rank": 8,
-        "title": "kc game",
-        "type": "Search Query / Trend",
-        "traffic_volume": "2000+",
-        "description": "Trending search query on Google with 2000+ searches in past 24h.",
-        "url": "https://trends.google.com/trending/rss?geo=US",
-        "published_at": "Sun, 20 Sep 2026 19:50:00 -0700",
-        "platform": "Google"
-      },
-      {
-        "rank": 9,
-        "title": "colts coach",
-        "type": "Search Query / Trend",
-        "traffic_volume": "200+",
-        "description": "Trending search query on Google with 200+ searches in past 24h.",
-        "url": "https://trends.google.com/trending/rss?geo=US",
-        "published_at": "Sun, 20 Sep 2026 19:50:00 -0700",
-        "platform": "Google"
-      },
-      {
-        "rank": 10,
-        "title": "presley gerber",
-        "type": "Search Query / Trend",
-        "traffic_volume": "50000+",
-        "description": "Trending search query on Google with 50000+ searches in past 24h.",
-        "url": "https://trends.google.com/trending/rss?geo=US",
-        "published_at": "Sun, 20 Sep 2026 19:40:00 -0700",
         "platform": "Google"
       }
     ],
@@ -416,102 +416,102 @@
     "Medium": [
       {
         "rank": 1,
-        "title": "The Hidden Cost of “Free” QR Code Generators (And Why Privacy-First Tools Are the Future)",
+        "title": "8 Companies Where You Can Build Your Own Music Streaming App",
         "type": "Trending Article / Editorial",
         "traffic_volume": "High engagement #technology",
-        "description": "Published by RahaLune QR Studio in #technology. High read ratio & community claps.",
-        "url": "https://medium.com/@RahaLuneQRStudio/the-hidden-cost-of-free-qr-code-generators-and-why-privacy-first-tools-are-the-future-04294b4957ba?source=rss------technology-5",
-        "published_at": "Mon, 21 Sep 2026 04:47:39 GMT",
+        "description": "Published by Arpit Mishra in #technology. High read ratio & community claps.",
+        "url": "https://medium.com/@arpit.mishra_26414/8-companies-where-you-can-build-your-own-music-streaming-app-365e8a57f846?source=rss------technology-5",
+        "published_at": "Mon, 21 Sep 2026 05:55:51 GMT",
         "platform": "Medium"
       },
       {
         "rank": 2,
-        "title": "      \n.",
+        "title": "Thailand’s Robotics Boom Is Becoming a Volume Game",
         "type": "Trending Article / Editorial",
         "traffic_volume": "High engagement #technology",
-        "description": "Published by Faiz Israili in #technology. High read ratio & community claps.",
-        "url": "https://medium.com/@great.mobile.only/-8664e8076a8b?source=rss------technology-5",
-        "published_at": "Mon, 21 Sep 2026 04:43:38 GMT",
+        "description": "Published by Sagar Mehta in #technology. High read ratio & community claps.",
+        "url": "https://medium.com/@sagamasamune38/thailands-robotics-boom-is-becoming-a-volume-game-6329026dfd13?source=rss------technology-5",
+        "published_at": "Mon, 21 Sep 2026 05:55:35 GMT",
         "platform": "Medium"
       },
       {
         "rank": 3,
-        "title": "Briansclub and Cloud Security for Safer Financial Services",
+        "title": "Motion Sensor LED Bulb Prices in India: Costs & Features",
         "type": "Trending Article / Editorial",
         "traffic_volume": "High engagement #technology",
-        "description": "Published by russianmarket in #technology. High read ratio & community claps.",
-        "url": "https://medium.com/@sog817014/briansclub-and-cloud-security-for-safer-financial-services-a4eb3aa6705b?source=rss------technology-5",
-        "published_at": "Mon, 21 Sep 2026 04:41:34 GMT",
+        "description": "Published by Esysense in #technology. High read ratio & community claps.",
+        "url": "https://medium.com/@esysense764/motion-sensor-led-bulb-prices-in-india-costs-features-13fa66776cf1?source=rss------technology-5",
+        "published_at": "Mon, 21 Sep 2026 05:48:50 GMT",
         "platform": "Medium"
       },
       {
         "rank": 4,
-        "title": "Briansclub Marketplace Safety: A Guide to Digital Security Awareness",
+        "title": "Generative AI in Banking: The Quiet Rewiring of Finance",
         "type": "Trending Article / Editorial",
         "traffic_volume": "High engagement #technology",
-        "description": "Published by russianmarket in #technology. High read ratio & community claps.",
-        "url": "https://medium.com/@sog817014/briansclub-marketplace-safety-a-guide-to-digital-security-awareness-a59de82acbd6?source=rss------technology-5",
-        "published_at": "Mon, 21 Sep 2026 04:37:22 GMT",
+        "description": "Published by Christine Soliman in #technology. High read ratio & community claps.",
+        "url": "https://medium.com/@Christine_2108/generative-ai-in-banking-the-quiet-rewiring-of-finance-27e827c57667?source=rss------technology-5",
+        "published_at": "Mon, 21 Sep 2026 05:47:59 GMT",
         "platform": "Medium"
       },
       {
         "rank": 5,
-        "title": "AI Agent Evaluation at KBW 2026: Bring a Testable Demo",
+        "title": "Descriptive Essay Writing Help Worth Paying For in 2027",
         "type": "Trending Article / Editorial",
         "traffic_volume": "High engagement #technology",
-        "description": "Published by BOT Chain Official in #technology. High read ratio & community claps.",
-        "url": "https://medium.com/@BOTChain_ai/ai-agent-evaluation-at-kbw-2026-bring-a-testable-demo-aa00eb46078a?source=rss------technology-5",
-        "published_at": "Mon, 21 Sep 2026 04:36:01 GMT",
+        "description": "Published by Story Pulse in #technology. High read ratio & community claps.",
+        "url": "https://storypulse.medium.com/descriptive-essay-writing-help-worth-paying-for-in-2027-4b30493816f9?source=rss------technology-5",
+        "published_at": "Mon, 21 Sep 2026 05:47:57 GMT",
         "platform": "Medium"
       },
       {
         "rank": 6,
-        "title": "What Actually Happens When You Send a Message to ChatGPT?",
+        "title": "The Robot Demo Is Over. The Factory Is the Product.",
         "type": "Trending Article / Editorial",
         "traffic_volume": "High engagement #technology",
-        "description": "Published by Harsh Gupta in #technology. High read ratio & community claps.",
-        "url": "https://medium.com/@harsh-gupta-js/what-actually-happens-when-you-send-a-message-to-chatgpt-13a97ca3d748?source=rss------technology-5",
-        "published_at": "Mon, 21 Sep 2026 04:35:37 GMT",
+        "description": "Published by Christine Soliman in #technology. High read ratio & community claps.",
+        "url": "https://medium.com/@Christine_2108/the-robot-demo-is-over-the-factory-is-the-product-3aab0f6eccb1?source=rss------technology-5",
+        "published_at": "Mon, 21 Sep 2026 05:47:35 GMT",
         "platform": "Medium"
       },
       {
         "rank": 7,
-        "title": "AI Agents Are the Next Big Shift in How We Use Technology",
+        "title": "How to Convert Tons to Kilograms Without Confusion",
         "type": "Trending Article / Editorial",
         "traffic_volume": "High engagement #technology",
-        "description": "Published by Kristen Belly ☄️ in #technology. High read ratio & community claps.",
-        "url": "https://medium.com/@khalidkhan3398/ai-agents-are-the-next-big-shift-in-how-we-use-technology-9831729f1263?source=rss------technology-5",
-        "published_at": "Mon, 21 Sep 2026 04:34:58 GMT",
+        "description": "Published by Ton to Kg Calculator in #technology. High read ratio & community claps.",
+        "url": "https://medium.com/@fifaworld98765/how-to-convert-tons-to-kilograms-without-confusion-4d3de3744378?source=rss------technology-5",
+        "published_at": "Mon, 21 Sep 2026 05:46:35 GMT",
         "platform": "Medium"
       },
       {
         "rank": 8,
-        "title": "AI Is Creating a New Kind of Online Worker",
+        "title": "7 Key Benefits of Microsoft Defender for Identity in 2026",
         "type": "Trending Article / Editorial",
         "traffic_volume": "High engagement #technology",
-        "description": "Published by Kristen Belly ☄️ in #technology. High read ratio & community claps.",
-        "url": "https://medium.com/@khalidkhan3398/ai-is-creating-a-new-kind-of-online-worker-2f9b194a89fe?source=rss------technology-5",
-        "published_at": "Mon, 21 Sep 2026 04:33:46 GMT",
+        "description": "Published by Diwakarexe in #technology. High read ratio & community claps.",
+        "url": "https://medium.com/@diwakarexe8/7-key-benefits-of-microsoft-defender-for-identity-in-2026-970ddeb33822?source=rss------technology-5",
+        "published_at": "Mon, 21 Sep 2026 05:46:10 GMT",
         "platform": "Medium"
       },
       {
         "rank": 9,
-        "title": "Seven Stories, One Pattern: Crypto Stopped Being About Crypto",
+        "title": "Marketing Lessons from Apple",
         "type": "Trending Article / Editorial",
         "traffic_volume": "High engagement #technology",
-        "description": "Published by Edb in #technology. High read ratio & community claps.",
-        "url": "https://medium.com/@ed79bert/seven-stories-one-pattern-crypto-stopped-being-about-crypto-f59b18ddbf7c?source=rss------technology-5",
-        "published_at": "Mon, 21 Sep 2026 04:32:34 GMT",
+        "description": "Published by MarkHub24 in #technology. High read ratio & community claps.",
+        "url": "https://medium.com/@markhub24/marketing-lessons-from-apple-da0d177d5c17?source=rss------technology-5",
+        "published_at": "Mon, 21 Sep 2026 05:44:48 GMT",
         "platform": "Medium"
       },
       {
         "rank": 10,
-        "title": "India’s IT Giants Are Hiring Again — for a Job Title That Barely Existed Last Year.",
+        "title": "AI Doesn’t Need to Hate Us to Hurt Us. We May Be Asking the Wrong Question.",
         "type": "Trending Article / Editorial",
         "traffic_volume": "High engagement #technology",
-        "description": "Published by Harsh Pardhi in #technology. High read ratio & community claps.",
-        "url": "https://medium.com/@harshpardhi477/indias-it-giants-are-hiring-again-for-a-job-title-that-barely-existed-last-year-9027351ba0b3?source=rss------technology-5",
-        "published_at": "Mon, 21 Sep 2026 04:31:05 GMT",
+        "description": "Published by Andrew in #technology. High read ratio & community claps.",
+        "url": "https://medium.com/@rajapriya.naresh/ai-doesnt-need-to-hate-us-to-hurt-us-we-may-be-asking-the-wrong-question-0551c0b4858a?source=rss------technology-5",
+        "published_at": "Mon, 21 Sep 2026 05:44:47 GMT",
         "platform": "Medium"
       }
     ],
