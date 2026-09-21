@@ -75,9 +75,9 @@
           <span>📊 8-Platform Trend Matrix (80 Items)</span>
         </button>
         <button onclick="switchMasterView('agent07')" id="tab-agent07" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-800 flex items-center justify-center space-x-2 transition">
-          <i data-lucide="bot" class="w-4 h-4 text-emerald-400"></i>
-          <span>🤖 Agent 07 Live Outreach Log & Queue</span>
-          <span class="px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px]" id="badge-agent07-count">Active</span>
+          <i data-lucide="users" class="w-4 h-4 text-emerald-400"></i>
+          <span>👥 1 Supervisor + 7 Persona Fleet</span>
+          <span class="px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px]" id="badge-agent07-count">7 Workers</span>
         </button>
         <button onclick="switchMasterView('youtube')" id="tab-youtube" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-800 flex items-center justify-center space-x-2 transition">
           <i data-lucide="youtube" class="w-4 h-4 text-red-400"></i>
@@ -195,74 +195,149 @@
       </div>
     </div>
 
-    <!-- VIEW 2: AGENT 07 LIVE OUTREACH & WORKING LOG (Visible when Agent 07 Tab is Active) -->
+    <!-- VIEW 2: 1 SUPERVISOR + 7 PERSONA FLEET (Active Multi-Persona Queue) -->
     <div id="section-agent07" class="space-y-6 hidden">
       
-      <!-- AGENT 07 HEADER & TIMING CONTROLS -->
+      <!-- SUPERVISOR & FLEET ORCHESTRATION HEADER -->
       <div class="bg-gradient-to-r from-slate-900 via-slate-900 to-emerald-950/40 border border-emerald-500/30 p-5 rounded-2xl space-y-4 shadow-xl shadow-emerald-500/5">
-        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
           <div class="space-y-1">
             <div class="flex items-center space-x-2">
-              <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-500/30 font-bold text-xs font-mono">07</div>
-              <h2 class="text-base font-bold text-white">Agent 07 (Marketing Content Specialist) — Human Outreach Activity</h2>
-              <span class="px-2 py-0.5 text-[10px] font-bold uppercase rounded-md bg-emerald-500/20 text-emerald-300">Human Jitter Delay Enabled</span>
+              <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-500/30 font-bold text-xs font-mono">
+                <i data-lucide="shield-check" class="w-4 h-4"></i>
+              </div>
+              <h2 class="text-base font-bold text-white">Master Supervisor & 7-Persona Outreach Fleet</h2>
+              <span class="px-2 py-0.5 text-[10px] font-bold uppercase rounded-md bg-emerald-500/20 text-emerald-300">Anti-Ban & Dialect Matching</span>
             </div>
             <p class="text-xs text-slate-300">
-              Agent 07 responds in everyday human language (e.g. <em>"bro"</em>, <em>"dude"</em>, <em>"tbh"</em>), maintains polite composure on abusive replies, and applies randomized time gaps (e.g. 3.4m, 7.8m, 4.2m) between answers.
+              The Supervisor classifies questions by language dialect (Hinglish, Roman Urdu, Native English, Dev Tech), assigning the authentic matching worker persona to build instant cultural trust and protect accounts from bans.
             </p>
           </div>
 
-          <button onclick="triggerAutomatedCampaign()" class="flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-lg shadow-emerald-600/30 transition active:scale-95 whitespace-nowrap">
-            <i data-lucide="play" class="w-4 h-4"></i>
-            <span>Queue Human Outreach Campaign</span>
-          </button>
+          <div class="flex items-center space-x-2">
+            <button onclick="triggerFleetCampaign()" class="flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-lg shadow-emerald-600/30 transition active:scale-95 whitespace-nowrap">
+              <i data-lucide="zap" class="w-4 h-4"></i>
+              <span>⚡ Dispatch 7-Worker Fleet Campaign</span>
+            </button>
+          </div>
         </div>
 
-        <!-- TIMING INTELLIGENCE PILLS -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 border-t border-slate-800/80 text-xs">
-          <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-center space-x-3">
-            <i data-lucide="shuffle" class="w-5 h-5 text-indigo-400"></i>
-            <div>
-              <p class="text-[11px] text-slate-400">Variable Time Jitter</p>
-              <p class="font-bold text-slate-200">Random 3.2m to 9.8m Gaps</p>
+        <!-- 7 WORKER PERSONA ROSTER CARDS -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2.5 pt-3 border-t border-slate-800/80 text-xs">
+          
+          <!-- 1. Robert Miller -->
+          <div onclick="filterFleetByWorker('robert_miller')" class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-indigo-500/50 cursor-pointer transition flex flex-col justify-between">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-lg">👨‍💻</span>
+              <span class="text-[10px]">🇺🇸 🇬🇧</span>
             </div>
+            <p class="font-bold text-slate-200 text-[11px] truncate">Robert Miller</p>
+            <p class="text-[10px] text-slate-400">US/UK Casual</p>
+            <span class="mt-1 px-1.5 py-0.5 rounded bg-indigo-500/10 text-indigo-400 font-mono text-[9px] text-center" id="cnt-robert_miller">0 tasks</span>
           </div>
-          <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-center space-x-3">
-            <i data-lucide="shield-alert" class="w-5 h-5 text-amber-400"></i>
-            <div>
-              <p class="text-[11px] text-slate-400">Same-Platform Buffer</p>
-              <p class="font-bold text-slate-200">+6.5m to 14m Extra Safety Delay</p>
+
+          <!-- 2. Nina William -->
+          <div onclick="filterFleetByWorker('nina_william')" class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-pink-500/50 cursor-pointer transition flex flex-col justify-between">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-lg">👩‍💼</span>
+              <span class="text-[10px]">🇪🇺 🇺🇸</span>
             </div>
+            <p class="font-bold text-slate-200 text-[11px] truncate">Nina William</p>
+            <p class="text-[10px] text-slate-400">Western Pro</p>
+            <span class="mt-1 px-1.5 py-0.5 rounded bg-pink-500/10 text-pink-400 font-mono text-[9px] text-center" id="cnt-nina_william">0 tasks</span>
           </div>
-          <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-center space-x-3">
-            <i data-lucide="message-circle" class="w-5 h-5 text-emerald-400"></i>
-            <div>
-              <p class="text-[11px] text-slate-400">Persona Style</p>
-              <p class="font-bold text-slate-200">Casual User ("bro/dude") + Polite Defense</p>
+
+          <!-- 3. Rahul Verma -->
+          <div onclick="filterFleetByWorker('rahul_verma')" class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-amber-500/50 cursor-pointer transition flex flex-col justify-between">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-lg">🧑‍💻</span>
+              <span class="text-[10px]">🇮🇳</span>
             </div>
+            <p class="font-bold text-slate-200 text-[11px] truncate">Rahul Verma</p>
+            <p class="text-[10px] text-slate-400">Hinglish Tech</p>
+            <span class="mt-1 px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-400 font-mono text-[9px] text-center" id="cnt-rahul_verma">0 tasks</span>
           </div>
+
+          <!-- 4. Priya Sharma -->
+          <div onclick="filterFleetByWorker('priya_sharma')" class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-rose-500/50 cursor-pointer transition flex flex-col justify-between">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-lg">👩‍💻</span>
+              <span class="text-[10px]">🇮🇳</span>
+            </div>
+            <p class="font-bold text-slate-200 text-[11px] truncate">Priya Sharma</p>
+            <p class="text-[10px] text-slate-400">Indian Office</p>
+            <span class="mt-1 px-1.5 py-0.5 rounded bg-rose-500/10 text-rose-400 font-mono text-[9px] text-center" id="cnt-priya_sharma">0 tasks</span>
+          </div>
+
+          <!-- 5. Ali Ahmed -->
+          <div onclick="filterFleetByWorker('ali_ahmed')" class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-emerald-500/50 cursor-pointer transition flex flex-col justify-between">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-lg">🧔</span>
+              <span class="text-[10px]">🇵🇰 🇦🇪</span>
+            </div>
+            <p class="font-bold text-slate-200 text-[11px] truncate">Ali Ahmed</p>
+            <p class="text-[10px] text-slate-400">Roman Urdu</p>
+            <span class="mt-1 px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-mono text-[9px] text-center" id="cnt-ali_ahmed">0 tasks</span>
+          </div>
+
+          <!-- 6. Ayesha Khan -->
+          <div onclick="filterFleetByWorker('ayesha_khan')" class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-teal-500/50 cursor-pointer transition flex flex-col justify-between">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-lg">🧕</span>
+              <span class="text-[10px]">🇵🇰</span>
+            </div>
+            <p class="font-bold text-slate-200 text-[11px] truncate">Ayesha Khan</p>
+            <p class="text-[10px] text-slate-400">Privacy Pro</p>
+            <span class="mt-1 px-1.5 py-0.5 rounded bg-teal-500/10 text-teal-400 font-mono text-[9px] text-center" id="cnt-ayesha_khan">0 tasks</span>
+          </div>
+
+          <!-- 7. David (Tech) -->
+          <div onclick="filterFleetByWorker('david_tech')" class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-cyan-500/50 cursor-pointer transition flex flex-col justify-between">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-lg">⚡</span>
+              <span class="text-[10px]">🌐</span>
+            </div>
+            <p class="font-bold text-slate-200 text-[11px] truncate">David (Tech)</p>
+            <p class="text-[10px] text-slate-400">WASM Architect</p>
+            <span class="mt-1 px-1.5 py-0.5 rounded bg-cyan-500/10 text-cyan-400 font-mono text-[9px] text-center" id="cnt-david_tech">0 tasks</span>
+          </div>
+
         </div>
       </div>
 
       <!-- OUTREACH LOG TABLE WITH DIRECT JUMP LINKS -->
       <div class="rounded-2xl border border-slate-800 bg-slate-900/50 backdrop-blur-xl overflow-hidden shadow-2xl">
-        <div class="p-4 border-b border-slate-800 flex items-center justify-between">
+        <div class="p-4 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div class="flex items-center space-x-2">
             <i data-lucide="history" class="w-4 h-4 text-emerald-400"></i>
-            <h3 class="font-bold text-sm text-white">Dispatched Messages & Scheduled Queue</h3>
+            <h3 class="font-bold text-sm text-white">Delegated Tasks & Multi-Persona Active Queue</h3>
           </div>
-          <span class="text-xs font-mono text-slate-400" id="agent07-total-label">Loading history...</span>
+
+          <div class="flex items-center space-x-2">
+            <span class="text-xs text-slate-400">Filter Worker:</span>
+            <select id="worker-filter-select" onchange="filterFleetByWorker(this.value)" class="bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1 text-xs text-slate-200 focus:outline-none focus:border-emerald-500">
+              <option value="all">👥 All 7 Workers</option>
+              <option value="robert_miller">👨‍💻 Robert Miller (US/UK)</option>
+              <option value="nina_william">👩‍💼 Nina William (Western Pro)</option>
+              <option value="rahul_verma">🧑‍💻 Rahul Verma (Hinglish)</option>
+              <option value="priya_sharma">👩‍💻 Priya Sharma (Indian Office)</option>
+              <option value="ali_ahmed">🧔 Ali Ahmed (Roman Urdu)</option>
+              <option value="ayesha_khan">🧕 Ayesha Khan (Pakistani Pro)</option>
+              <option value="david_tech">⚡ David Tech (WASM / Dev)</option>
+            </select>
+          </div>
         </div>
 
         <div class="overflow-x-auto">
           <table class="w-full text-left border-collapse text-xs">
             <thead>
               <tr class="bg-slate-950 border-b border-slate-800 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
-                <th class="p-3.5 w-28">Platform</th>
-                <th class="p-3.5 w-72">Target Question & Source Link</th>
-                <th class="p-3.5">Human Reply Message (Agent 07)</th>
-                <th class="p-3.5 w-36 text-center">Random Jitter Delay</th>
-                <th class="p-3.5 w-44">Dispatched / Scheduled</th>
+                <th class="p-3.5 w-44">Assigned Worker</th>
+                <th class="p-3.5 w-24">Platform</th>
+                <th class="p-3.5 w-72">Target Question & Link</th>
+                <th class="p-3.5">Authentic Human Reply</th>
+                <th class="p-3.5 w-32 text-center">Jitter Delay</th>
+                <th class="p-3.5 w-40">Scheduled Time</th>
                 <th class="p-3.5 w-24 text-center">Status</th>
               </tr>
             </thead>
@@ -749,94 +824,174 @@
       } catch (e) {}
     }
 
+    let fleetHistoryData = null;
+    let selectedFleetWorker = 'all';
+
     async function loadAgent07History() {
       try {
-        const resp = await fetch('/api/agent07/history');
+        const resp = await fetch('/api/fleet/history');
         if (resp.ok) {
-          agent07History = await resp.json();
+          const res = await resp.json();
+          fleetHistoryData = res.history || [];
+          updateFleetCounts();
           renderAgent07Log();
           return;
         }
       } catch (e) {}
 
       // Fallback local simulation if static
-      if (!agent07History) {
-        agent07History = {
-          total_dispatched: 5,
-          history: [
-            {
-              platform: "Quora",
-              question_title: "How can I compress a large 50MB PDF without Adobe Acrobat for free?",
-              question_url: "https://www.quora.com/search?q=compress+large+PDF+without+Adobe",
-              reply_text: "bro honestly just use yourownpdf.com. It compresses it right inside your browser without uploading your file to any sketchy servers, so your private documents stay on your laptop. saves a ton of time tbh.",
-              delay_minutes: 4.3,
-              dispatched_at_pkst: "2026-09-21 10:15:00 PKST",
-              status: "SENT"
-            },
-            {
-              platform: "Reddit",
-              question_title: "Looking for offline-first tool to merge and split PDF files securely",
-              question_url: "https://www.reddit.com/r/privacy/search/?q=offline+pdf+merge",
-              reply_text: "dude check out yourownpdf.com. The best part is it runs 100% client-side in WebAssembly. You can literally turn off your WiFi and it still works because nothing leaves your machine. hope that helps bro!",
-              delay_minutes: 8.7,
-              dispatched_at_pkst: "2026-09-21 10:23:42 PKST",
-              status: "SENT"
-            },
-            {
-              platform: "Reddit",
-              question_title: "Why do commercial PDF editors charge so much for simple file conversion?",
-              question_url: "https://www.reddit.com/r/software/search/?q=free+client+side+pdf",
-              reply_text: "bro don't even bother with Adobe or paying monthly, yourownpdf.com has free client-side tools for this. Everything runs right in your browser so it's super fast, totally free, and your files stay private. literally takes 5 seconds man.",
-              delay_minutes: 11.2,
-              dispatched_at_pkst: "2026-09-21 10:35:00 PKST",
-              status: "SCHEDULED"
-            },
-            {
-              platform: "Facebook",
-              question_title: "#TeacherCommunity: How do you split student exam PDF papers without paying for software?",
-              question_url: "https://www.facebook.com/search/top?q=combine+exam+papers+pdf",
-              reply_text: "hey bro, yourownpdf.com splits and merges pages directly in your browser with zero watermarks or email signups. super clean and saves a lot of time.",
-              delay_minutes: 3.5,
-              dispatched_at_pkst: "2026-09-21 10:38:30 PKST",
-              status: "SCHEDULED"
-            },
-            {
-              platform: "Quora",
-              question_title: "How do I remove passwords or edit permissions on a PDF document I own?",
-              question_url: "https://www.quora.com/search?q=remove+password+from+pdf",
-              reply_text: "dude just use yourownpdf.com, it has an instant unlock tool that runs client-side without uploading your private files anywhere. give it a shot bro!",
-              delay_minutes: 7.1,
-              dispatched_at_pkst: "2026-09-21 10:45:40 PKST",
-              status: "SCHEDULED"
-            }
-          ]
-        };
+      fleetHistoryData = [
+        {
+          id: "FLEET-101",
+          worker_id: "rahul_verma",
+          worker_name: "Rahul Verma",
+          worker_avatar: "🧑‍💻",
+          worker_flag: "🇮🇳",
+          matched_dialect: "Hinglish / Indian English",
+          match_reason: "Hinglish & Regional Context Match",
+          confidence_score: 98,
+          platform: "Reddit",
+          question_title: "Bhai koi aisi site batao jahan 50MB se badi PDF compress ho sake without daily limit?",
+          question_url: "https://www.reddit.com/r/india",
+          reply_text: "Bhai Adobe ka subscription lene ki bilkul zaroorat nahi hai. yourownpdf.com use karo, browser ke andar hi unlimited merge aur compress ho jata hai bina kisi daily limit ya payment ke.",
+          delay_minutes: 4.2,
+          scheduled_at_pkst: "2026-09-21 13:05:00 PKST",
+          status: "DISPATCHED"
+        },
+        {
+          id: "FLEET-102",
+          worker_id: "ali_ahmed",
+          worker_name: "Ali Ahmed",
+          worker_avatar: "🧔",
+          worker_flag: "🇵🇰 🇦🇪",
+          matched_dialect: "Roman Urdu / Pakistani English",
+          match_reason: "Roman Urdu & Cultural Context Match",
+          confidence_score: 99,
+          platform: "Quora",
+          question_title: "Yaar koi aisa tareeqa hai jo bina upload kiye offline kaam kare aur office firewall block na kare?",
+          question_url: "https://www.quora.com",
+          reply_text: "Bhai tension na lo! yourownpdf.com use karo. Yeh browser ke andar WebAssembly pe chalta hai, matlab offline bhi kaam karta hai aur files kisi third-party server pe upload nahi hoti.",
+          delay_minutes: 8.5,
+          scheduled_at_pkst: "2026-09-21 13:13:30 PKST",
+          status: "QUEUED"
+        },
+        {
+          id: "FLEET-103",
+          worker_id: "robert_miller",
+          worker_name: "Robert Miller",
+          worker_avatar: "👨‍💻",
+          worker_flag: "🇺🇸 🇬🇧",
+          matched_dialect: "Native US/UK English",
+          match_reason: "Native English & Global Workflow Match",
+          confidence_score: 96,
+          platform: "Reddit",
+          question_title: "Adobe Acrobat wants an arm and a leg for a basic merge, any free alternative with no file caps?",
+          question_url: "https://www.reddit.com/r/software",
+          reply_text: "dude don't waste money on Adobe subs just for basic merging/converting. yourownpdf.com does it client-side with zero daily file caps or watermarks. saves a ton of time tbh.",
+          delay_minutes: 12.8,
+          scheduled_at_pkst: "2026-09-21 13:21:40 PKST",
+          status: "QUEUED"
+        },
+        {
+          id: "FLEET-104",
+          worker_id: "david_tech",
+          worker_name: "David (Tech)",
+          worker_avatar: "⚡",
+          worker_flag: "🌐",
+          matched_dialect: "Developer Tech",
+          match_reason: "Technical / WASM Architecture Intent",
+          confidence_score: 99,
+          platform: "YouTube",
+          question_title: "Need client-side WebAssembly PDF vector flattening library with zero server calls.",
+          question_url: "https://youtube.com",
+          reply_text: "If you are concerned about server-side data retention or bandwidth caps, yourownpdf.com executes PDF manipulation (compression, merging, rendering) 100% client-side via WebAssembly. Zero bytes leave your local browser sandbox, providing true zero-knowledge privacy and instant throughput.",
+          delay_minutes: 16.2,
+          scheduled_at_pkst: "2026-09-21 13:25:00 PKST",
+          status: "QUEUED"
+        },
+        {
+          id: "FLEET-105",
+          worker_id: "nina_william",
+          worker_name: "Nina William",
+          worker_avatar: "👩‍💼",
+          worker_flag: "🇪🇺 🇺🇸",
+          matched_dialect: "Native US/UK English",
+          match_reason: "Native English & Global Workflow Match",
+          confidence_score: 95,
+          platform: "Pinterest",
+          question_title: "I have 60 lecture slides as JPG and need to combine them for exam submission tonight.",
+          question_url: "https://pinterest.com",
+          reply_text: "Lifesaver for school and office PDFs! yourownpdf.com has no limits on how many pages or images you combine into one PDF, and it's 100% free with no account required.",
+          delay_minutes: 19.7,
+          scheduled_at_pkst: "2026-09-21 13:28:40 PKST",
+          status: "QUEUED"
+        }
+      ];
+      updateFleetCounts();
+      renderAgent07Log();
+    }
+
+    function updateFleetCounts() {
+      const counts = {
+        robert_miller: 0,
+        nina_william: 0,
+        rahul_verma: 0,
+        priya_sharma: 0,
+        ali_ahmed: 0,
+        ayesha_khan: 0,
+        david_tech: 0
+      };
+      (fleetHistoryData || []).forEach(item => {
+        if (item.worker_id && counts[item.worker_id] !== undefined) {
+          counts[item.worker_id]++;
+        }
+      });
+      for (const [w_id, cnt] of Object.entries(counts)) {
+        const el = document.getElementById(`cnt-${w_id}`);
+        if (el) el.innerText = `${cnt} tasks`;
       }
+    }
+
+    function filterFleetByWorker(workerId) {
+      selectedFleetWorker = workerId;
+      const select = document.getElementById('worker-filter-select');
+      if (select) select.value = workerId;
       renderAgent07Log();
     }
 
     function renderAgent07Log() {
       const tbody = document.getElementById('agent07-log-tbody');
-      const items = (agent07History && agent07History.history) || [];
-      document.getElementById('agent07-total-label').innerText = `${items.length} Total Messages Logged`;
+      let items = fleetHistoryData || [];
+      if (selectedFleetWorker !== 'all') {
+        items = items.filter(i => i.worker_id === selectedFleetWorker);
+      }
 
       if (items.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-slate-500">No outreach history found. Click "Queue Human Outreach Campaign".</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="7" class="p-8 text-center text-slate-500">No delegated tasks found for this worker. Click "Dispatch 7-Worker Fleet Campaign".</td></tr>`;
         return;
       }
 
       tbody.innerHTML = items.map(item => {
-        const isSent = item.status === 'SENT';
+        const isSent = item.status === 'DISPATCHED' || item.status === 'SENT';
         const badgeColor = isSent ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30' : 'bg-amber-500/20 text-amber-300 border-amber-500/30';
         return `
           <tr class="hover:bg-slate-900/60 transition">
+            <td class="p-3.5">
+              <div class="flex items-center space-x-2">
+                <span class="text-base">${item.worker_avatar || '👤'}</span>
+                <div>
+                  <p class="font-bold text-slate-200">${item.worker_name} <span class="text-[10px]">${item.worker_flag || ''}</span></p>
+                  <span class="px-1.5 py-0.2 rounded bg-indigo-500/10 text-indigo-400 font-mono text-[9px]">${item.matched_dialect || 'English'}</span>
+                </div>
+              </div>
+            </td>
             <td class="p-3.5 font-bold text-slate-200">
               <span class="px-2 py-1 rounded-md bg-slate-950 border border-slate-800">${item.platform}</span>
             </td>
             <td class="p-3.5">
               <p class="font-semibold text-slate-200 line-clamp-2">${item.question_title}</p>
               <a href="${item.question_url}" target="_blank" class="inline-flex items-center space-x-1 text-[11px] text-indigo-400 hover:text-indigo-300 font-bold mt-1">
-                <span>Open Exact Question Link</span>
+                <span>Open Source Link</span>
                 <i data-lucide="external-link" class="w-3 h-3"></i>
               </a>
             </td>
@@ -847,7 +1002,7 @@
               +${item.delay_minutes} min
             </td>
             <td class="p-3.5 text-slate-400 font-mono text-[11px]">
-              ${item.dispatched_at_pkst || item.scheduled_at_pkst}
+              ${item.scheduled_at_pkst || item.dispatched_at_pkst}
             </td>
             <td class="p-3.5 text-center">
               <span class="px-2 py-0.5 rounded-md border ${badgeColor} font-bold text-[10px]">
@@ -861,31 +1016,20 @@
       lucide.createIcons();
     }
 
-    async function triggerAutomatedCampaign() {
-      if (!trendsData || !trendsData.platforms) {
-        alert('Please harvest trends first.');
-        return;
-      }
-      let topLeads = [];
-      for (const [p, list] of Object.entries(trendsData.platforms)) {
-        if (['Reddit', 'Quora', 'Facebook', 'Medium'].includes(p)) {
-          list.slice(0, 3).forEach(item => topLeads.push({ ...item, platform: p }));
-        }
-      }
-
+    async function triggerFleetCampaign() {
       try {
-        const resp = await fetch('/api/agent07/dispatch-campaign', {
+        const resp = await fetch('/api/fleet/dispatch', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ questions: topLeads })
+          body: JSON.stringify({})
         });
         if (resp.ok) {
           const res = await resp.json();
-          alert(`✅ Successfully queued ${res.scheduled_count} human outreach messages with randomized jitter delays!`);
+          alert(`✅ Supervisor successfully analyzed & delegated ${res.scheduled_count} tasks across the 7 Persona Fleet with authentic language dialects!`);
           loadAgent07History();
         }
       } catch (e) {
-        alert('Queued campaign simulated locally with human jitter delays!');
+        alert('Multi-persona campaign delegated locally with anti-ban jitter timers!');
         loadAgent07History();
       }
     }

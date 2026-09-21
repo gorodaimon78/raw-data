@@ -35,6 +35,10 @@ _yt_mod = importlib.import_module("agents_code.07_marketing_content.youtube_comm
 YouTubeCommentHarvester = _yt_mod.YouTubeCommentHarvester
 draft_youtube_human_reply = _yt_mod.draft_youtube_human_reply
 
+_fleet_mod = importlib.import_module("agents_code.07_marketing_content.multi_persona_dispatcher")
+SupervisorPersonaDispatcher = _fleet_mod.SupervisorPersonaDispatcher
+WORKER_ROSTER = _fleet_mod.WORKER_ROSTER
+
 BASE_DIR = Path(__file__).resolve().parent
 WEB_DIR = BASE_DIR / "web"
 REPORTS_DIR = BASE_DIR / "reports"
@@ -104,6 +108,26 @@ class TrendsAPIHandler(SimpleHTTPRequestHandler):
             self.send_header("Access-Control-Allow-Origin", "*")
             self.end_headers()
             self.wfile.write(json.dumps({"success": True, "count": len(items), "items": items}, ensure_ascii=False).encode("utf-8"))
+            return
+
+        elif parsed.path == "/api/fleet/workers":
+            dispatcher = SupervisorPersonaDispatcher()
+            stats = dispatcher.get_fleet_stats()
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": True, "data": stats}, ensure_ascii=False).encode("utf-8"))
+            return
+
+        elif parsed.path == "/api/fleet/history":
+            dispatcher = SupervisorPersonaDispatcher()
+            stats = dispatcher.get_fleet_stats()
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": True, "history": stats.get("history", [])}, ensure_ascii=False).encode("utf-8"))
             return
 
         elif parsed.path == "/api/status":
@@ -230,6 +254,43 @@ class TrendsAPIHandler(SimpleHTTPRequestHandler):
             self.send_header("Access-Control-Allow-Origin", "*")
             self.end_headers()
             self.wfile.write(json.dumps({"success": True, "reply": reply}, ensure_ascii=False).encode("utf-8"))
+            return
+
+        elif parsed.path == "/api/fleet/classify-and-draft":
+            q = payload.get("question", "")
+            author = payload.get("author", "User")
+            platform = payload.get("platform", "Reddit")
+            dispatcher = SupervisorPersonaDispatcher()
+            result = dispatcher.classify_and_assign(q, author_name=author, platform=platform)
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": True, "data": result}, ensure_ascii=False).encode("utf-8"))
+            return
+
+        elif parsed.path == "/api/fleet/dispatch":
+            items = payload.get("items", [])
+            if not items:
+                # Pull top leads from latest trends automatically
+                trends_data = get_latest_trends_data()
+                if trends_data and "platforms" in trends_data:
+                    for p, list_items in trends_data["platforms"].items():
+                        if p in ["Reddit", "Quora", "Facebook", "Medium", "YouTube"]:
+                            for itm in list_items[:2]:
+                                items.append({
+                                    "title": itm.get("title", ""),
+                                    "author": itm.get("type", "User"),
+                                    "platform": p,
+                                    "url": itm.get("url", "#")
+                                })
+            dispatcher = SupervisorPersonaDispatcher()
+            scheduled = dispatcher.queue_fleet_campaign(items)
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": True, "scheduled_count": len(scheduled), "items": scheduled}, ensure_ascii=False).encode("utf-8"))
             return
 
         self.send_response(404)
