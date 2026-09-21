@@ -31,6 +31,10 @@ Agent07OutreachManager = _outreach_mod.Agent07OutreachManager
 draft_human_reply = _outreach_mod.draft_human_reply
 draft_polite_defensive_reply = _outreach_mod.draft_polite_defensive_reply
 
+_yt_mod = importlib.import_module("agents_code.07_marketing_content.youtube_comment_harvester")
+YouTubeCommentHarvester = _yt_mod.YouTubeCommentHarvester
+draft_youtube_human_reply = _yt_mod.draft_youtube_human_reply
+
 BASE_DIR = Path(__file__).resolve().parent
 WEB_DIR = BASE_DIR / "web"
 REPORTS_DIR = BASE_DIR / "reports"
@@ -90,6 +94,18 @@ class TrendsAPIHandler(SimpleHTTPRequestHandler):
             self.wfile.write(json.dumps(data, ensure_ascii=False).encode("utf-8"))
             return
             
+        elif parsed.path == "/api/youtube/harvest":
+            qs = parse_qs(parsed.query)
+            topic = qs.get("topic", ["all"])[0]
+            harvester = YouTubeCommentHarvester()
+            items = harvester.harvest_by_topic(topic)
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": True, "count": len(items), "items": items}, ensure_ascii=False).encode("utf-8"))
+            return
+
         elif parsed.path == "/api/status":
             utc_now = datetime.now(timezone.utc)
             pkst_now = utc_now + timedelta(hours=5)
@@ -180,6 +196,40 @@ class TrendsAPIHandler(SimpleHTTPRequestHandler):
             self.send_header("Access-Control-Allow-Origin", "*")
             self.end_headers()
             self.wfile.write(json.dumps({"success": True, "scheduled_count": len(scheduled), "items": scheduled}).encode("utf-8"))
+            return
+
+        elif parsed.path == "/api/youtube/harvest":
+            topic = payload.get("topic", "all")
+            harvester = YouTubeCommentHarvester()
+            items = harvester.harvest_by_topic(topic)
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": True, "count": len(items), "items": items}, ensure_ascii=False).encode("utf-8"))
+            return
+
+        elif parsed.path == "/api/youtube/custom":
+            video_url = payload.get("video_url", "")
+            harvester = YouTubeCommentHarvester()
+            res = harvester.harvest_custom_video(video_url)
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(json.dumps(res, ensure_ascii=False).encode("utf-8"))
+            return
+
+        elif parsed.path == "/api/youtube/draft-reply":
+            comm_text = payload.get("comment_text", "")
+            intent = payload.get("intent", "PDF Workflow")
+            author = payload.get("author", "User")
+            reply = draft_youtube_human_reply(comm_text, intent, author)
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": True, "reply": reply}, ensure_ascii=False).encode("utf-8"))
             return
 
         self.send_response(404)
