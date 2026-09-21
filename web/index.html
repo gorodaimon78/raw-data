@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Raw Data (P5) — 8-Platform Trends Intelligence Matrix</title>
+  <title>Raw Data (P5) — Semantic Traffic & Question Harvester</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,23 +24,10 @@
   </script>
   <style>
     body { font-family: 'Plus Jakarta Sans', sans-serif; }
-    .matrix-table th {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-    }
-    .sticky-col {
-      position: sticky;
-      left: 0;
-      z-index: 10;
-    }
-    .matrix-cell {
-      min-width: 240px;
-      max-width: 280px;
-    }
-    .matrix-table tr:hover td {
-      background-color: rgba(30, 41, 59, 0.5);
-    }
+    .matrix-table th { position: sticky; top: 0; z-index: 20; }
+    .sticky-col { position: sticky; left: 0; z-index: 10; }
+    .matrix-cell { min-width: 250px; max-width: 300px; }
+    .matrix-table tr:hover td { background-color: rgba(30, 41, 59, 0.4); }
   </style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased selection:bg-indigo-500 selection:text-white">
@@ -50,14 +37,15 @@
     <div class="max-w-[1700px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
       <div class="flex items-center space-x-3">
         <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 flex items-center justify-center shadow-lg shadow-indigo-500/20">
-          <i data-lucide="table-2" class="w-5 h-5 text-white"></i>
+          <i data-lucide="target" class="w-5 h-5 text-white"></i>
         </div>
         <div>
           <div class="flex items-center space-x-2">
             <span class="font-extrabold text-lg tracking-tight bg-gradient-to-r from-white via-slate-200 to-indigo-300 bg-clip-text text-transparent">Raw Data</span>
             <span class="px-2 py-0.5 text-xs font-semibold rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">Project Five (P5)</span>
+            <span class="px-2 py-0.5 text-xs font-semibold rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hidden sm:inline">🚀 Feeds Project 1 (YourOwnPDF)</span>
           </div>
-          <p class="text-xs text-slate-400">8-Platform Top 10 Intelligence Table (Daily 6:00 AM PKST)</p>
+          <p class="text-xs text-slate-400">Semantic Traffic & Question Harvester across 8 Major Platforms</p>
         </div>
       </div>
 
@@ -68,10 +56,10 @@
           <span id="pkst-clock">--:--:-- PKST</span>
         </div>
 
-        <button id="refresh-btn" onclick="triggerRefresh()" class="flex items-center space-x-2 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold shadow-lg shadow-indigo-600/30 transition active:scale-95 disabled:opacity-50">
-          <i data-lucide="refresh-cw" id="refresh-icon" class="w-4 h-4"></i>
-          <span id="refresh-text">Execute Trends Now</span>
-        </button>
+        <a href="https://yourownpdf.com" target="_blank" class="hidden sm:flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs font-semibold text-slate-300 hover:text-white transition">
+          <i data-lucide="external-link" class="w-3.5 h-3.5 text-indigo-400"></i>
+          <span>Visit YourOwnPDF</span>
+        </a>
       </div>
     </div>
   </header>
@@ -79,32 +67,81 @@
   <!-- MAIN CONTAINER -->
   <main class="flex-1 max-w-[1700px] w-full mx-auto px-4 sm:px-6 py-6 space-y-6">
 
-    <!-- TOP TOOLBAR & CONTROLS -->
-    <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4 bg-slate-900/80 border border-slate-800 p-4 rounded-2xl">
-      <!-- STATS BADGES -->
-      <div class="flex flex-wrap items-center gap-3">
-        <div class="px-3.5 py-1.5 rounded-xl bg-slate-950 border border-slate-800 text-xs">
-          <span class="text-slate-400">Total Tracked:</span>
-          <span class="font-bold text-emerald-400 ml-1" id="stat-total-trends">80 Items (10 per platform)</span>
+    <!-- TARGET NICHE / KEYWORD HARVESTER TOOLBAR -->
+    <div class="bg-gradient-to-r from-slate-900 via-slate-900/90 to-indigo-950/40 border border-indigo-500/30 p-5 rounded-2xl space-y-4 shadow-xl shadow-indigo-500/5">
+      <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-base font-bold text-white flex items-center space-x-2">
+            <i data-lucide="sparkles" class="w-4 h-4 text-indigo-400"></i>
+            <span>Semantic Traffic Harvester & Intent Extractor</span>
+          </h2>
+          <p class="text-xs text-slate-400 mt-0.5">
+            Enter any keyword, problem phrase, or workflow. The engine expands related queries, pain points, and live questions across all 8 platforms.
+          </p>
         </div>
-        <div class="px-3.5 py-1.5 rounded-xl bg-slate-950 border border-slate-800 text-xs">
-          <span class="text-slate-400">Schedule:</span>
-          <span class="font-bold text-amber-400 ml-1">Daily @ 06:00 AM PKST (01:00 UTC)</span>
-        </div>
-        <div class="px-3.5 py-1.5 rounded-xl bg-slate-950 border border-slate-800 text-xs">
-          <span class="text-slate-400">Last Generated:</span>
-          <span class="font-mono font-semibold text-cyan-300 ml-1" id="stat-last-gen">Loading...</span>
+
+        <!-- SEARCH INPUT & BUTTON -->
+        <div class="flex items-center space-x-2 sm:w-auto w-full">
+          <div class="relative flex-1 sm:w-80">
+            <i data-lucide="search" class="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2"></i>
+            <input type="text" id="niche-input" value="PDF" placeholder="Enter keyword (e.g. PDF, Merge, Compress, OCR)..." class="w-full bg-slate-950 border border-slate-700 rounded-xl pl-9 pr-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500">
+          </div>
+          <button id="harvest-btn" onclick="harvestNiche()" class="flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold shadow-lg shadow-indigo-600/30 transition active:scale-95 whitespace-nowrap">
+            <i data-lucide="flame" id="harvest-icon" class="w-4 h-4"></i>
+            <span id="harvest-text">Harvest Traffic Leads</span>
+          </button>
         </div>
       </div>
 
-      <!-- SEARCH & EXPORT & VIEW SWITCHER -->
+      <!-- PRESET QUICK CLUSTERS -->
+      <div class="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-800/80 text-xs">
+        <span class="text-slate-400 font-semibold mr-1">Quick Presets:</span>
+        <button onclick="setNichePreset('PDF')" class="px-3 py-1 rounded-lg bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 font-medium transition">
+          📄 PDF Tools (Project 1)
+        </button>
+        <button onclick="setNichePreset('Compress PDF')" class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium transition">
+          🗜️ Compress & Reduce Size
+        </button>
+        <button onclick="setNichePreset('Merge PDF')" class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium transition">
+          🧩 Merge & Combine Pages
+        </button>
+        <button onclick="setNichePreset('Privacy Document')" class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium transition">
+          🔒 Offline / Client-Side Privacy
+        </button>
+        <button onclick="setNichePreset('Convert PDF')" class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium transition">
+          🔄 Convert & OCR
+        </button>
+        <button onclick="setNichePreset('Trends')" class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium transition">
+          📈 General 24h Trends
+        </button>
+      </div>
+    </div>
+
+    <!-- CONTROLS & STATS BAR -->
+    <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4 bg-slate-900/60 border border-slate-800 p-3.5 rounded-2xl">
+      <div class="flex flex-wrap items-center gap-3 text-xs">
+        <div class="px-3 py-1 rounded-lg bg-slate-950 border border-slate-800">
+          <span class="text-slate-400">Target Niche:</span>
+          <span class="font-bold text-indigo-400 ml-1" id="stat-current-niche">PDF</span>
+        </div>
+        <div class="px-3 py-1 rounded-lg bg-slate-950 border border-slate-800">
+          <span class="text-slate-400">Total Opportunities:</span>
+          <span class="font-bold text-emerald-400 ml-1" id="stat-total-trends">80 Items (10 per network)</span>
+        </div>
+        <div class="px-3 py-1 rounded-lg bg-slate-950 border border-slate-800">
+          <span class="text-slate-400">Daily Auto-Run:</span>
+          <span class="font-bold text-amber-400 ml-1">06:00 AM PKST (GitHub Actions)</span>
+        </div>
+      </div>
+
+      <!-- FILTER & VIEW CONTROLS -->
       <div class="flex items-center space-x-3">
-        <div class="relative w-64">
-          <i data-lucide="search" class="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2"></i>
-          <input type="text" id="search-input" oninput="renderTable()" placeholder="Search any topic/query..." class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500">
+        <div class="relative w-56">
+          <i data-lucide="filter" class="w-3.5 h-3.5 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2"></i>
+          <input type="text" id="table-filter" oninput="renderTable()" placeholder="Quick filter in results..." class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-8 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500">
         </div>
 
-        <div class="flex items-center space-x-1.5 bg-slate-950 border border-slate-800 p-1 rounded-xl">
+        <div class="flex items-center space-x-1 bg-slate-950 border border-slate-800 p-1 rounded-xl">
           <button onclick="setViewMode('matrix')" id="btn-view-matrix" class="px-3 py-1 rounded-lg text-xs font-semibold bg-indigo-600 text-white flex items-center space-x-1 transition">
             <i data-lucide="columns" class="w-3.5 h-3.5"></i>
             <span>Matrix Table</span>
@@ -124,50 +161,82 @@
       </div>
     </div>
 
-    <!-- MAIN TABLE / LIST CONTAINER -->
+    <!-- MAIN MATRIX TABLE / LIST VIEW -->
     <div id="view-container" class="rounded-2xl border border-slate-800 bg-slate-900/50 backdrop-blur-xl overflow-hidden shadow-2xl">
-      <!-- Dynamically filled by renderTable() -->
+      <!-- Dynamically filled -->
     </div>
 
-    <!-- AGENT 07 STRATEGY BANNER -->
+    <!-- PLAYBOOK BANNER -->
     <div class="rounded-2xl p-5 border border-indigo-500/30 bg-gradient-to-r from-indigo-950/40 via-slate-900/60 to-slate-900/60 flex items-start space-x-4">
       <div class="w-10 h-10 rounded-xl bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 flex items-center justify-center shrink-0">
-        <i data-lucide="sparkles" class="w-5 h-5"></i>
+        <i data-lucide="compass" class="w-5 h-5"></i>
       </div>
-      <div>
-        <h4 class="font-bold text-white text-sm">Actionable Insights (Agent 07 Marketing Content Specialist)</h4>
-        <p class="text-xs text-slate-300 mt-1 leading-relaxed">
-          Compare trending columns above to discover multi-platform content synergies. High-volume Google search queries paired with real community discussions on Quora/Reddit provide high-intent SEO topics and viral social hooks.
+      <div class="space-y-1">
+        <h4 class="font-bold text-white text-sm">Project 1 (YourOwnPDF) Traffic Acquisition Playbook</h4>
+        <p class="text-xs text-slate-300 leading-relaxed">
+          • <strong>Quora & Reddit Strategy</strong>: Click <em>"⚡ AI Reply"</em> on any question above to copy a tailored answer promoting YourOwnPDF with zero spam.<br>
+          • <strong>Google Long-Tail SEO</strong>: The Google column shows high-demand autocomplete queries. Ensure YourOwnPDF has dedicated tool landing pages for each.<br>
+          • <strong>YouTube & Pinterest Hooks</strong>: Convert top queries into 15-second screen recording tutorials and aesthetic cheat sheets for compounding referral visitors.
         </p>
       </div>
     </div>
 
   </main>
 
+  <!-- AI REPLY MODAL -->
+  <div id="reply-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-2xl w-full p-6 space-y-4 shadow-2xl relative">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div class="flex items-center space-x-2">
+          <i data-lucide="message-square" class="w-5 h-5 text-indigo-400"></i>
+          <h3 class="font-bold text-white text-base">AI Reply Drafter for Project 1 (YourOwnPDF)</h3>
+        </div>
+        <button onclick="closeReplyModal()" class="text-slate-400 hover:text-white p-1">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div>
+        <label class="text-xs font-bold uppercase tracking-wider text-slate-400">Target Question / Topic:</label>
+        <p id="modal-question-title" class="text-sm font-semibold text-white mt-1 p-2.5 rounded-lg bg-slate-950 border border-slate-800"></p>
+      </div>
+
+      <div>
+        <label class="text-xs font-bold uppercase tracking-wider text-slate-400">Drafted Helpful Solution (Marketing Agent 07):</label>
+        <textarea id="modal-reply-text" rows="7" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 mt-1 focus:outline-none focus:border-indigo-500 font-mono leading-relaxed"></textarea>
+      </div>
+
+      <div class="flex items-center justify-between pt-2">
+        <span class="text-[11px] text-slate-400">Promotes YourOwnPDF (client-side, privacy-safe, free).</span>
+        <button onclick="copyModalReply()" id="copy-btn" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold flex items-center space-x-1.5 transition">
+          <i data-lucide="copy" class="w-4 h-4"></i>
+          <span id="copy-btn-text">Copy to Clipboard</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- FOOTER -->
   <footer class="border-t border-slate-900 bg-slate-950 py-4 text-center text-xs text-slate-500">
-    <p>Raw Data (Project Five) — Multi-Platform Trends Intelligence Matrix • GitHub Actions Automated @ 06:00 AM PKST</p>
+    <p>Raw Data (Project Five) — Semantic Traffic Harvester for Project 1 (YourOwnPDF) • Automated @ 06:00 AM PKST</p>
   </footer>
 
   <script>
     let trendsData = null;
-    let viewMode = 'matrix'; // 'matrix' or 'list'
+    let viewMode = 'matrix';
 
     const platformColumns = [
-      { key: 'Google', name: 'Google', icon: '🔍', color: 'text-blue-400', badge: 'bg-blue-500/10 text-blue-400 border-blue-500/20' },
-      { key: 'Reddit', name: 'Reddit', icon: '👽', color: 'text-orange-400', badge: 'bg-orange-500/10 text-orange-400 border-orange-500/20' },
-      { key: 'YouTube', name: 'YouTube', icon: '▶️', color: 'text-red-400', badge: 'bg-red-500/10 text-red-400 border-red-500/20' },
-      { key: 'Pinterest', name: 'Pinterest', icon: '📌', color: 'text-rose-400', badge: 'bg-rose-500/10 text-rose-400 border-rose-500/20' },
-      { key: 'Medium', name: 'Medium', icon: '✍️', color: 'text-emerald-400', badge: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' },
-      { key: 'Quora', name: 'Quora', icon: '❓', color: 'text-amber-400', badge: 'bg-amber-500/10 text-amber-400 border-amber-500/20' },
-      { key: 'LinkedIn', name: 'LinkedIn', icon: '💼', color: 'text-sky-400', badge: 'bg-sky-500/10 text-sky-400 border-sky-500/20' },
-      { key: 'Facebook', name: 'Facebook', icon: '👥', color: 'text-indigo-400', badge: 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20' },
+      { key: 'Google', name: 'Google', icon: '🔍', color: 'text-blue-400' },
+      { key: 'Reddit', name: 'Reddit', icon: '👽', color: 'text-orange-400' },
+      { key: 'YouTube', name: 'YouTube', icon: '▶️', color: 'text-red-400' },
+      { key: 'Pinterest', name: 'Pinterest', icon: '📌', color: 'text-rose-400' },
+      { key: 'Medium', name: 'Medium', icon: '✍️', color: 'text-emerald-400' },
+      { key: 'Quora', name: 'Quora', icon: '❓', color: 'text-amber-400' },
+      { key: 'LinkedIn', name: 'LinkedIn', icon: '💼', color: 'text-sky-400' },
+      { key: 'Facebook', name: 'Facebook', icon: '👥', color: 'text-indigo-400' },
     ];
 
-    const rankLabels = [
-      "Top 1st", "Top 2nd", "Top 3rd", "4th", "5th",
-      "6th", "7th", "8th", "9th", "10th"
-    ];
+    const rankLabels = ["Top 1st", "Top 2nd", "Top 3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th"];
 
     function updateClock() {
       const now = new Date();
@@ -181,9 +250,10 @@
     setInterval(updateClock, 1000);
     updateClock();
 
-    async function loadTrends() {
+    async function loadTrends(keyword = null) {
       try {
-        const resp = await fetch('/api/trends');
+        const url = keyword ? `/api/trends?keyword=${encodeURIComponent(keyword)}` : '/api/trends';
+        const resp = await fetch(url);
         if (resp.ok) {
           trendsData = await resp.json();
           updateStats();
@@ -204,8 +274,45 @@
 
     function updateStats() {
       if (!trendsData) return;
-      document.getElementById('stat-total-trends').innerText = `${trendsData.total_trends || 80} Items (10 per platform)`;
-      document.getElementById('stat-last-gen').innerText = (trendsData.generated_at_pkst || 'Today');
+      document.getElementById('stat-current-niche').innerText = trendsData.target_niche || 'PDF';
+      document.getElementById('stat-total-trends').innerText = `${trendsData.total_trends || 80} Items (10 per network)`;
+    }
+
+    function setNichePreset(niche) {
+      document.getElementById('niche-input').value = niche;
+      harvestNiche();
+    }
+
+    async function harvestNiche() {
+      const keyword = document.getElementById('niche-input').value.trim() || 'PDF';
+      const btn = document.getElementById('harvest-btn');
+      const text = document.getElementById('harvest-text');
+      const icon = document.getElementById('harvest-icon');
+
+      btn.disabled = true;
+      icon.classList.add('animate-spin');
+      text.innerText = `Harvesting '${keyword}'...`;
+
+      try {
+        const resp = await fetch('/api/refresh', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ keyword })
+        });
+        const result = await resp.json();
+        if (result.success && result.data) {
+          trendsData = result.data;
+          updateStats();
+          renderTable();
+        }
+      } catch (err) {
+        // Static fallback
+        await loadTrends(keyword);
+      } finally {
+        btn.disabled = false;
+        icon.classList.remove('animate-spin');
+        text.innerText = 'Harvest Traffic Leads';
+      }
     }
 
     function setViewMode(mode) {
@@ -224,11 +331,11 @@
     function renderTable() {
       const container = document.getElementById('view-container');
       if (!trendsData || !trendsData.platforms) {
-        container.innerHTML = `<div class="py-16 text-center text-slate-500">No trend data loaded. Click "Execute Trends Now".</div>`;
+        container.innerHTML = `<div class="py-16 text-center text-slate-500">No data loaded. Click "Harvest Traffic Leads".</div>`;
         return;
       }
 
-      const searchQuery = document.getElementById('search-input').value.toLowerCase();
+      const searchQuery = document.getElementById('table-filter').value.toLowerCase();
 
       if (viewMode === 'matrix') {
         renderMatrixView(container, searchQuery);
@@ -239,7 +346,7 @@
       lucide.createIcons();
     }
 
-    // 1. Matrix View (Excel-style 8 columns side-by-side)
+    // 1. Matrix View
     function renderMatrixView(container, searchQuery) {
       let html = `
         <div class="overflow-x-auto">
@@ -278,7 +385,7 @@
             continue;
           }
 
-          const matches = !searchQuery || item.title.toLowerCase().includes(searchQuery) || (item.description && item.description.toLowerCase().includes(searchQuery));
+          const matches = !searchQuery || item.title.toLowerCase().includes(searchQuery);
           const highlightClass = matches ? '' : 'opacity-20';
 
           html += `
@@ -288,13 +395,17 @@
                   ${item.title}
                 </a>
                 <div class="pt-1.5 flex items-center justify-between border-t border-slate-800/50 text-[10px]">
-                  <span class="px-2 py-0.5 rounded bg-slate-900 text-amber-300 font-mono font-medium truncate max-w-[170px]">
+                  <span class="px-2 py-0.5 rounded bg-slate-900 text-amber-300 font-mono font-medium truncate max-w-[140px]" title="${item.traffic_volume}">
                     🔥 ${item.traffic_volume || 'Trending'}
                   </span>
-                  <a href="${item.url}" target="_blank" class="text-indigo-400 hover:text-indigo-300 flex items-center space-x-0.5 font-semibold">
-                    <span>Link</span>
-                    <i data-lucide="external-link" class="w-3 h-3"></i>
-                  </a>
+                  <div class="flex items-center space-x-1">
+                    <button onclick="openReplyModal('${escapeStr(item.title)}', '${p.name}')" title="Draft AI Reply for Project 1" class="text-indigo-400 hover:text-white px-1.5 py-0.5 rounded bg-indigo-500/10 hover:bg-indigo-600 font-bold transition">
+                      ⚡ Reply
+                    </button>
+                    <a href="${item.url}" target="_blank" class="text-slate-400 hover:text-white p-1">
+                      <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                    </a>
+                  </div>
                 </div>
               </div>
             </td>
@@ -313,7 +424,7 @@
       container.innerHTML = html;
     }
 
-    // 2. Structured List View
+    // 2. List View
     function renderListView(container, searchQuery) {
       let html = `<div class="divide-y divide-slate-800">`;
 
@@ -323,13 +434,13 @@
           <div class="p-4 bg-slate-950/60">
             <div class="flex items-center space-x-2 mb-3">
               <span class="text-lg">${p.icon}</span>
-              <h3 class="font-bold text-sm ${p.color}">${p.name} — Top 10 Searches & Trends</h3>
+              <h3 class="font-bold text-sm ${p.color}">${p.name} — Top 10 Targeted Opportunities</h3>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
         `;
 
         items.forEach((item, idx) => {
-          const matches = !searchQuery || item.title.toLowerCase().includes(searchQuery) || (item.description && item.description.toLowerCase().includes(searchQuery));
+          const matches = !searchQuery || item.title.toLowerCase().includes(searchQuery);
           if (!matches) return;
 
           html += `
@@ -340,9 +451,14 @@
                   ${item.title}
                 </a>
               </div>
-              <span class="px-2 py-0.5 rounded bg-slate-950 text-amber-300 font-mono text-[10px] whitespace-nowrap">
-                🔥 ${item.traffic_volume}
-              </span>
+              <div class="flex items-center space-x-2 shrink-0">
+                <span class="px-2 py-0.5 rounded bg-slate-950 text-amber-300 font-mono text-[10px] whitespace-nowrap">
+                  🔥 ${item.traffic_volume}
+                </span>
+                <button onclick="openReplyModal('${escapeStr(item.title)}', '${p.name}')" class="text-xs text-indigo-400 hover:text-white px-2 py-1 rounded bg-indigo-500/10 hover:bg-indigo-600 font-semibold transition">
+                  ⚡ Reply
+                </button>
+              </div>
             </div>
           `;
         });
@@ -354,47 +470,45 @@
       container.innerHTML = html;
     }
 
-    async function triggerRefresh() {
-      const btn = document.getElementById('refresh-btn');
-      const icon = document.getElementById('refresh-icon');
-      const text = document.getElementById('refresh-text');
-      
-      btn.disabled = true;
-      icon.classList.add('animate-spin');
-      text.innerText = 'Extracting Trends...';
+    function escapeStr(str) {
+      return (str || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+    }
 
-      try {
-        const resp = await fetch('/api/refresh', { method: 'POST' });
-        const result = await resp.json();
-        if (result.success && result.data) {
-          trendsData = result.data;
-          updateStats();
-          renderTable();
-        }
-      } catch (err) {
-        alert('Refresh failed: ' + err.message);
-      } finally {
-        btn.disabled = false;
-        icon.classList.remove('animate-spin');
-        text.innerText = 'Execute Trends Now';
-      }
+    function openReplyModal(title, platform) {
+      document.getElementById('modal-question-title').innerText = title;
+      const defaultReply = `Hi! To solve this easily without installing bulky software or paying for Adobe subscriptions:\n\n1. You can use **YourOwnPDF** (https://yourownpdf.com).\n2. Because it processes files directly inside your browser using client-side WebAssembly, your documents are never uploaded to any remote server (100% private & secure).\n3. It allows compressing, merging, and editing for free with zero watermarks.\n\nHope this helps!`;
+      document.getElementById('modal-reply-text').value = defaultReply;
+      document.getElementById('reply-modal').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function closeReplyModal() {
+      document.getElementById('reply-modal').classList.add('hidden');
+    }
+
+    function copyModalReply() {
+      const text = document.getElementById('modal-reply-text').value;
+      navigator.clipboard.writeText(text);
+      const btnText = document.getElementById('copy-btn-text');
+      btnText.innerText = 'Copied to Clipboard! ✅';
+      setTimeout(() => { btnText.innerText = 'Copy to Clipboard'; }, 2000);
     }
 
     function exportMarkdown() {
       if (!trendsData) return;
-      let md = `# Daily Top 10 Search & Trend Report (${trendsData.generated_at_pkst})\n\n`;
+      let md = `# Traffic & Question Opportunities for '${trendsData.target_niche || 'PDF'}' (${trendsData.generated_at_pkst})\n\n`;
       for (const [p, items] of Object.entries(trendsData.platforms)) {
         md += `## ${p}\n\n`;
         items.forEach(i => {
-          md += `### ${i.rank}. [${i.title}](${i.url})\n- Format: ${i.type} | Volume: ${i.traffic_volume}\n- Context: ${i.description}\n\n`;
+          md += `### ${i.rank}. [${i.title}](${i.url})\n- Type: ${i.type} | Volume: ${i.traffic_volume}\n\n`;
         });
       }
-      downloadFile(md, `daily_trends_${trendsData.date}.md`, 'text/markdown');
+      downloadFile(md, `traffic_leads_${trendsData.target_niche || 'PDF'}_${trendsData.date}.md`, 'text/markdown');
     }
 
     function exportJSON() {
       if (!trendsData) return;
-      downloadFile(JSON.stringify(trendsData, null, 2), `daily_trends_${trendsData.date}.json`, 'application/json');
+      downloadFile(JSON.stringify(trendsData, null, 2), `traffic_leads_${trendsData.target_niche || 'PDF'}_${trendsData.date}.json`, 'application/json');
     }
 
     function downloadFile(content, filename, type) {

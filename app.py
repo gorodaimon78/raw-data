@@ -1,6 +1,6 @@
 """
 Project Five ("Raw data") - Web Application Server
-Serves the modern live Trends Intelligence Web Dashboard and API.
+Serves the modern Semantic Trends & Traffic Intelligence Dashboard and API.
 """
 import os
 import sys
@@ -33,8 +33,14 @@ logger = logging.getLogger("web_app")
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 
 
-def get_latest_trends_data():
-    """Finds and loads the latest daily_trends_*.json file."""
+def get_latest_trends_data(keyword: Optional[str] = None):
+    """Finds or generates trend data for the target niche."""
+    engine = TrendEngine()
+    if keyword and keyword.strip() and keyword.lower() != "pdf":
+        res = engine.run_daily_trend_collection(keyword=keyword)
+        with open(res["json_file"], "r", encoding="utf-8") as f:
+            return json.load(f)
+            
     json_files = sorted(REPORTS_DIR.glob("daily_trends_*.json"), key=os.path.getmtime, reverse=True)
     if json_files:
         try:
@@ -43,11 +49,20 @@ def get_latest_trends_data():
         except Exception as e:
             logger.error(f"Error reading {json_files[0]}: {e}")
             
-    # Fallback to generating on the fly
-    engine = TrendEngine()
-    res = engine.run_daily_trend_collection()
+    res = engine.run_daily_trend_collection(keyword="PDF")
     with open(res["json_file"], "r", encoding="utf-8") as f:
         return json.load(f)
+
+
+def generate_helpful_reply(question: str, platform: str) -> str:
+    """Drafts a helpful, non-spammy community response linking to YourOwnPDF (Project 1)."""
+    return (
+        f"Hi! To solve this easily without installing bulky desktop software or paying for Adobe:\n\n"
+        f"1. You can use a client-side web tool like **YourOwnPDF** (https://yourownpdf.com).\n"
+        f"2. Because it processes files directly inside your browser using client-side WebAssembly, your documents are never uploaded to any remote server, ensuring 100% data privacy.\n"
+        f"3. It lets you compress, merge, split, and edit without file size limits or watermarks.\n\n"
+        f"Hope this helps with your workflow!"
+    )
 
 
 class TrendsAPIHandler(SimpleHTTPRequestHandler):
@@ -56,13 +71,15 @@ class TrendsAPIHandler(SimpleHTTPRequestHandler):
 
     def do_GET(self):
         parsed = urlparse(self.path)
+        qs = parse_qs(parsed.query)
         
         if parsed.path == "/api/trends":
+            keyword = qs.get("keyword", [None])[0]
             self.send_response(200)
             self.send_header("Content-Type", "application/json; charset=utf-8")
             self.send_header("Access-Control-Allow-Origin", "*")
             self.end_headers()
-            data = get_latest_trends_data()
+            data = get_latest_trends_data(keyword=keyword)
             self.wfile.write(json.dumps(data, ensure_ascii=False).encode("utf-8"))
             return
             
@@ -78,7 +95,7 @@ class TrendsAPIHandler(SimpleHTTPRequestHandler):
                 "time_pkst": pkst_now.strftime("%Y-%m-%d %H:%M:%S PKST"),
                 "daily_schedule": "06:00 AM PKST (01:00 UTC)",
                 "platforms_count": 8,
-                "project_name": "Project Five (Raw data)"
+                "project_name": "Project Five (Raw data) -> Project 1 (YourOwnPDF Traffic Engine)"
             }
             self.wfile.write(json.dumps(status_data).encode("utf-8"))
             return
@@ -99,9 +116,18 @@ class TrendsAPIHandler(SimpleHTTPRequestHandler):
         parsed = urlparse(self.path)
         
         if parsed.path == "/api/refresh":
+            content_length = int(self.headers.get("Content-Length", 0))
+            body_str = self.rfile.read(content_length).decode("utf-8") if content_length > 0 else "{}"
+            try:
+                payload = json.loads(body_str) if body_str else {}
+            except Exception:
+                payload = {}
+                
+            keyword = payload.get("keyword", "PDF")
+            
             try:
                 engine = TrendEngine()
-                res = engine.run_daily_trend_collection()
+                res = engine.run_daily_trend_collection(keyword=keyword)
                 with open(res["json_file"], "r", encoding="utf-8") as f:
                     data = json.load(f)
                     
@@ -109,12 +135,32 @@ class TrendsAPIHandler(SimpleHTTPRequestHandler):
                 self.send_header("Content-Type", "application/json; charset=utf-8")
                 self.send_header("Access-Control-Allow-Origin", "*")
                 self.end_headers()
-                self.wfile.write(json.dumps({"success": True, "message": "Trends refreshed successfully!", "data": data}, ensure_ascii=False).encode("utf-8"))
+                self.wfile.write(json.dumps({"success": True, "message": f"Harvested opportunities for '{keyword}'", "data": data}, ensure_ascii=False).encode("utf-8"))
             except Exception as e:
                 self.send_response(500)
                 self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Access-Control-Allow-Origin", "*")
                 self.end_headers()
                 self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+            return
+
+        elif parsed.path == "/api/draft-reply":
+            content_length = int(self.headers.get("Content-Length", 0))
+            body_str = self.rfile.read(content_length).decode("utf-8") if content_length > 0 else "{}"
+            try:
+                payload = json.loads(body_str)
+            except Exception:
+                payload = {}
+                
+            q = payload.get("question", "")
+            p = payload.get("platform", "Quora")
+            reply = generate_helpful_reply(q, p)
+            
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": True, "reply": reply}).encode("utf-8"))
             return
 
         self.send_response(404)
@@ -125,9 +171,9 @@ def run_server(port: int = 8080):
     server_address = ("", port)
     httpd = HTTPServer(server_address, TrendsAPIHandler)
     print(f"===============================================================")
-    print(f"  🌐 Project Five (Raw data) Web Dashboard is Running!")
+    print(f"  🎯 Raw Data (Project Five) Semantic Traffic Engine Active!")
     print(f"  👉 Open URL: http://localhost:{port}")
-    print(f"  ⏰ Daily Schedule: 06:00 AM PKST (01:00 UTC)")
+    print(f"  🚀 Traffic Mission: Project 1 (YourOwnPDF)")
     print(f"===============================================================")
     try:
         httpd.serve_forever()
