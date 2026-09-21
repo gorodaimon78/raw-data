@@ -22,12 +22,14 @@ from http.server import HTTPServer, SimpleHTTPRequestHandler
 from urllib.parse import urlparse, parse_qs
 from datetime import datetime, timezone, timedelta
 
+import importlib
+
 from agents_code.trend_collector.trend_engine import TrendEngine
-from agents_code.07_marketing_content.outreach_engine import (
-    Agent07OutreachManager,
-    draft_human_reply,
-    draft_polite_defensive_reply
-)
+
+_outreach_mod = importlib.import_module("agents_code.07_marketing_content.outreach_engine")
+Agent07OutreachManager = _outreach_mod.Agent07OutreachManager
+draft_human_reply = _outreach_mod.draft_human_reply
+draft_polite_defensive_reply = _outreach_mod.draft_polite_defensive_reply
 
 BASE_DIR = Path(__file__).resolve().parent
 WEB_DIR = BASE_DIR / "web"
