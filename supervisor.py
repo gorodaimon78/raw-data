@@ -24,10 +24,6 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 
-from agents_registry import AgentRegistry
-from supervisor_engine import SupervisorEngine
-from task_manager import TaskManager
-
 load_dotenv()
 console = Console(highlight=False)
 
@@ -282,34 +278,40 @@ def main():
 
     args = parser.parse_args()
 
-    registry = AgentRegistry()
-    tm = TaskManager()
-    engine = SupervisorEngine(registry=registry, task_manager=tm)
-
-    if args.command == "list-agents":
-        cmd_list_agents(registry, args)
-    elif args.command == "test-agents":
-        cmd_test_agents(registry, args)
-    elif args.command == "run-agent":
-        cmd_run_agent(registry, args)
-    elif args.command == "run-trends":
+    if args.command == "run-trends":
         cmd_run_trends(args)
     elif args.command == "start-pkst-scheduler":
         cmd_pkst_scheduler(args)
-    elif args.command == "list-tasks":
-        cmd_list_tasks(tm, args)
-    elif args.command == "add-task":
-        cmd_add_task(tm, registry, args)
-    elif args.command == "run-task":
-        cmd_run_task(engine, tm, args)
-    elif args.command == "run-daily":
-        cmd_run_daily(engine, args)
-    elif args.command == "history":
-        cmd_history(tm, args)
-    elif args.command == "start-daemon":
-        cmd_start_daemon(engine, args)
-    elif args.command == "dashboard" or not args.command:
-        cmd_dashboard(registry, tm, args)
+    else:
+        # Load agent and supervisor dependencies only when agent commands are requested
+        from agents_registry import AgentRegistry
+        from supervisor_engine import SupervisorEngine
+        from task_manager import TaskManager
+        
+        registry = AgentRegistry()
+        tm = TaskManager()
+        engine = SupervisorEngine(registry=registry, task_manager=tm)
+
+        if args.command == "list-agents":
+            cmd_list_agents(registry, args)
+        elif args.command == "test-agents":
+            cmd_test_agents(registry, args)
+        elif args.command == "run-agent":
+            cmd_run_agent(registry, args)
+        elif args.command == "list-tasks":
+            cmd_list_tasks(tm, args)
+        elif args.command == "add-task":
+            cmd_add_task(tm, registry, args)
+        elif args.command == "run-task":
+            cmd_run_task(engine, tm, args)
+        elif args.command == "run-daily":
+            cmd_run_daily(engine, args)
+        elif args.command == "history":
+            cmd_history(tm, args)
+        elif args.command == "start-daemon":
+            cmd_start_daemon(engine, args)
+        elif args.command == "dashboard" or not args.command:
+            cmd_dashboard(registry, tm, args)
 
 
 if __name__ == "__main__":
