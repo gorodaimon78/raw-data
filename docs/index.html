@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Raw Data (P5) — Daily 8-Platform Trends Intelligence</title>
+  <title>Raw Data (P5) — 8-Platform Trends Intelligence Matrix</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,15 +17,6 @@
           fontFamily: {
             sans: ['"Plus Jakarta Sans"', 'sans-serif'],
             mono: ['"JetBrains Mono"', 'monospace'],
-          },
-          colors: {
-            brand: {
-              50: '#eef2ff',
-              500: '#6366f1',
-              600: '#4f46e5',
-              700: '#4338ca',
-              900: '#312e81',
-            }
           }
         }
       }
@@ -33,31 +24,40 @@
   </script>
   <style>
     body { font-family: 'Plus Jakarta Sans', sans-serif; }
-    .glass-card {
-      background: rgba(30, 41, 59, 0.7);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+    .matrix-table th {
+      position: sticky;
+      top: 0;
+      z-index: 20;
     }
-    .glass-card:hover {
-      border-color: rgba(99, 102, 241, 0.4);
+    .sticky-col {
+      position: sticky;
+      left: 0;
+      z-index: 10;
+    }
+    .matrix-cell {
+      min-width: 240px;
+      max-width: 280px;
+    }
+    .matrix-table tr:hover td {
+      background-color: rgba(30, 41, 59, 0.5);
     }
   </style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased selection:bg-indigo-500 selection:text-white">
 
   <!-- TOP NAVIGATION -->
-  <header class="sticky top-0 z-50 border-b border-slate-800 bg-slate-950/80 backdrop-blur-xl">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+  <header class="sticky top-0 z-50 border-b border-slate-800 bg-slate-950/90 backdrop-blur-xl">
+    <div class="max-w-[1700px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
       <div class="flex items-center space-x-3">
         <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 flex items-center justify-center shadow-lg shadow-indigo-500/20">
-          <i data-lucide="activity" class="w-5 h-5 text-white"></i>
+          <i data-lucide="table-2" class="w-5 h-5 text-white"></i>
         </div>
         <div>
           <div class="flex items-center space-x-2">
             <span class="font-extrabold text-lg tracking-tight bg-gradient-to-r from-white via-slate-200 to-indigo-300 bg-clip-text text-transparent">Raw Data</span>
             <span class="px-2 py-0.5 text-xs font-semibold rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">Project Five (P5)</span>
           </div>
-          <p class="text-xs text-slate-400">8-Platform Search & Discussion Intelligence (Daily 6:00 AM PKST)</p>
+          <p class="text-xs text-slate-400">8-Platform Top 10 Intelligence Table (Daily 6:00 AM PKST)</p>
         </div>
       </div>
 
@@ -68,7 +68,7 @@
           <span id="pkst-clock">--:--:-- PKST</span>
         </div>
 
-        <button id="refresh-btn" onclick="triggerRefresh()" class="flex items-center space-x-2 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold shadow-lg shadow-indigo-600/30 transition active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed">
+        <button id="refresh-btn" onclick="triggerRefresh()" class="flex items-center space-x-2 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold shadow-lg shadow-indigo-600/30 transition active:scale-95 disabled:opacity-50">
           <i data-lucide="refresh-cw" id="refresh-icon" class="w-4 h-4"></i>
           <span id="refresh-text">Execute Trends Now</span>
         </button>
@@ -77,171 +77,105 @@
   </header>
 
   <!-- MAIN CONTAINER -->
-  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+  <main class="flex-1 max-w-[1700px] w-full mx-auto px-4 sm:px-6 py-6 space-y-6">
 
-    <!-- HERO METRICS -->
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-      <div class="glass-card rounded-2xl p-5 relative overflow-hidden group">
-        <div class="flex justify-between items-start">
-          <div>
-            <p class="text-xs font-medium uppercase tracking-wider text-slate-400">Target Platforms</p>
-            <h3 class="text-2xl font-bold mt-1 text-white">8 Networks</h3>
-            <p class="text-xs text-slate-400 mt-1">Google, Reddit, YouTube, Pinterest, Medium, Quora, LinkedIn, Facebook</p>
-          </div>
-          <div class="p-2 rounded-xl bg-indigo-500/10 text-indigo-400">
-            <i data-lucide="globe" class="w-5 h-5"></i>
-          </div>
+    <!-- TOP TOOLBAR & CONTROLS -->
+    <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4 bg-slate-900/80 border border-slate-800 p-4 rounded-2xl">
+      <!-- STATS BADGES -->
+      <div class="flex flex-wrap items-center gap-3">
+        <div class="px-3.5 py-1.5 rounded-xl bg-slate-950 border border-slate-800 text-xs">
+          <span class="text-slate-400">Total Tracked:</span>
+          <span class="font-bold text-emerald-400 ml-1" id="stat-total-trends">80 Items (10 per platform)</span>
+        </div>
+        <div class="px-3.5 py-1.5 rounded-xl bg-slate-950 border border-slate-800 text-xs">
+          <span class="text-slate-400">Schedule:</span>
+          <span class="font-bold text-amber-400 ml-1">Daily @ 06:00 AM PKST (01:00 UTC)</span>
+        </div>
+        <div class="px-3.5 py-1.5 rounded-xl bg-slate-950 border border-slate-800 text-xs">
+          <span class="text-slate-400">Last Generated:</span>
+          <span class="font-mono font-semibold text-cyan-300 ml-1" id="stat-last-gen">Loading...</span>
         </div>
       </div>
 
-      <div class="glass-card rounded-2xl p-5 relative overflow-hidden group">
-        <div class="flex justify-between items-start">
-          <div>
-            <p class="text-xs font-medium uppercase tracking-wider text-slate-400">Daily Tracked Trends</p>
-            <h3 class="text-2xl font-bold mt-1 text-emerald-400" id="stat-total-trends">80 Items</h3>
-            <p class="text-xs text-slate-400 mt-1">Top 10 each in past 24 hours</p>
-          </div>
-          <div class="p-2 rounded-xl bg-emerald-500/10 text-emerald-400">
-            <i data-lucide="trending-up" class="w-5 h-5"></i>
-          </div>
-        </div>
-      </div>
-
-      <div class="glass-card rounded-2xl p-5 relative overflow-hidden group">
-        <div class="flex justify-between items-start">
-          <div>
-            <p class="text-xs font-medium uppercase tracking-wider text-slate-400">Daily Schedule</p>
-            <h3 class="text-2xl font-bold mt-1 text-amber-400">06:00 AM PKST</h3>
-            <p class="text-xs text-slate-400 mt-1">01:00 UTC (Auto-Catchup on Boot)</p>
-          </div>
-          <div class="p-2 rounded-xl bg-amber-500/10 text-amber-400">
-            <i data-lucide="clock" class="w-5 h-5"></i>
-          </div>
-        </div>
-      </div>
-
-      <div class="glass-card rounded-2xl p-5 relative overflow-hidden group">
-        <div class="flex justify-between items-start">
-          <div>
-            <p class="text-xs font-medium uppercase tracking-wider text-slate-400">Data Last Generated</p>
-            <h3 class="text-lg font-bold mt-1 text-cyan-300 font-mono" id="stat-last-gen">Loading...</h3>
-            <p class="text-xs text-slate-400 mt-1" id="stat-time-ago">Checking local cache</p>
-          </div>
-          <div class="p-2 rounded-xl bg-cyan-500/10 text-cyan-400">
-            <i data-lucide="calendar" class="w-5 h-5"></i>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- FILTER & SEARCH TOOLBAR -->
-    <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 bg-slate-900/60 border border-slate-800/80 p-3 rounded-2xl">
-      <!-- PLATFORM TABS -->
-      <div class="flex items-center overflow-x-auto no-scrollbar space-x-1.5 pb-2 md:pb-0" id="platform-tabs">
-        <button onclick="setPlatformFilter('ALL')" class="platform-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-indigo-600 text-white whitespace-nowrap transition" data-platform="ALL">
-          All Platforms (80)
-        </button>
-        <button onclick="setPlatformFilter('Google')" class="platform-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-slate-800 whitespace-nowrap transition" data-platform="Google">
-          🔍 Google (10)
-        </button>
-        <button onclick="setPlatformFilter('Reddit')" class="platform-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-slate-800 whitespace-nowrap transition" data-platform="Reddit">
-          👽 Reddit (10)
-        </button>
-        <button onclick="setPlatformFilter('YouTube')" class="platform-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-slate-800 whitespace-nowrap transition" data-platform="YouTube">
-          ▶️ YouTube (10)
-        </button>
-        <button onclick="setPlatformFilter('Pinterest')" class="platform-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-slate-800 whitespace-nowrap transition" data-platform="Pinterest">
-          📌 Pinterest (10)
-        </button>
-        <button onclick="setPlatformFilter('Medium')" class="platform-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-slate-800 whitespace-nowrap transition" data-platform="Medium">
-          ✍️ Medium (10)
-        </button>
-        <button onclick="setPlatformFilter('Quora')" class="platform-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-slate-800 whitespace-nowrap transition" data-platform="Quora">
-          ❓ Quora (10)
-        </button>
-        <button onclick="setPlatformFilter('LinkedIn')" class="platform-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-slate-800 whitespace-nowrap transition" data-platform="LinkedIn">
-          💼 LinkedIn (10)
-        </button>
-        <button onclick="setPlatformFilter('Facebook')" class="platform-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-slate-800 whitespace-nowrap transition" data-platform="Facebook">
-          👥 Facebook (10)
-        </button>
-      </div>
-
-      <!-- SEARCH & EXPORT -->
-      <div class="flex items-center space-x-2">
-        <div class="relative flex-1 md:w-64">
+      <!-- SEARCH & EXPORT & VIEW SWITCHER -->
+      <div class="flex items-center space-x-3">
+        <div class="relative w-64">
           <i data-lucide="search" class="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2"></i>
-          <input type="text" id="search-input" oninput="renderTrends()" placeholder="Filter trends or topics..." class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500">
+          <input type="text" id="search-input" oninput="renderTable()" placeholder="Search any topic/query..." class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500">
         </div>
-        <button onclick="exportMarkdown()" title="Download Markdown" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition">
+
+        <div class="flex items-center space-x-1.5 bg-slate-950 border border-slate-800 p-1 rounded-xl">
+          <button onclick="setViewMode('matrix')" id="btn-view-matrix" class="px-3 py-1 rounded-lg text-xs font-semibold bg-indigo-600 text-white flex items-center space-x-1 transition">
+            <i data-lucide="columns" class="w-3.5 h-3.5"></i>
+            <span>Matrix Table</span>
+          </button>
+          <button onclick="setViewMode('list')" id="btn-view-list" class="px-3 py-1 rounded-lg text-xs font-semibold text-slate-400 hover:text-white flex items-center space-x-1 transition">
+            <i data-lucide="list" class="w-3.5 h-3.5"></i>
+            <span>List View</span>
+          </button>
+        </div>
+
+        <button onclick="exportMarkdown()" title="Export Markdown" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition">
           <i data-lucide="file-text" class="w-4 h-4"></i>
         </button>
-        <button onclick="exportJSON()" title="Download JSON" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition">
+        <button onclick="exportJSON()" title="Export JSON" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition">
           <i data-lucide="code" class="w-4 h-4"></i>
         </button>
       </div>
     </div>
 
-    <!-- CARDS GRID -->
-    <div id="trends-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <!-- Dynamically filled -->
+    <!-- MAIN TABLE / LIST CONTAINER -->
+    <div id="view-container" class="rounded-2xl border border-slate-800 bg-slate-900/50 backdrop-blur-xl overflow-hidden shadow-2xl">
+      <!-- Dynamically filled by renderTable() -->
     </div>
 
-    <!-- MARKETING SPECIALIST (AGENT 07) INSIGHTS BANNER -->
-    <div class="glass-card rounded-2xl p-6 border-indigo-500/30 bg-gradient-to-r from-indigo-950/40 via-slate-900/60 to-slate-900/60">
-      <div class="flex items-start space-x-4">
-        <div class="w-12 h-12 rounded-xl bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 flex items-center justify-center shrink-0">
-          <i data-lucide="sparkles" class="w-6 h-6"></i>
-        </div>
-        <div class="space-y-2">
-          <div class="flex items-center space-x-2">
-            <h4 class="font-bold text-white text-base">Actionable Content Angles (Agent 07 Marketing Specialist)</h4>
-            <span class="px-2 py-0.5 text-[10px] uppercase font-bold rounded-md bg-indigo-500/20 text-indigo-300">AI Synthesized</span>
-          </div>
-          <p class="text-xs text-slate-300 leading-relaxed">
-            • <strong>High-Intent Longtail</strong>: Combine top Google searches with Quora questions for high-ranking SEO blog posts.<br>
-            • <strong>Short-Form Video Hooks</strong>: Convert Pinterest aesthetic trends and YouTube surging video topics into TikTok / Reels hooks.<br>
-            • <strong>B2B Authority Building</strong>: Use LinkedIn workforce news to spark viral discussions and executive thought leadership.
-          </p>
-        </div>
+    <!-- AGENT 07 STRATEGY BANNER -->
+    <div class="rounded-2xl p-5 border border-indigo-500/30 bg-gradient-to-r from-indigo-950/40 via-slate-900/60 to-slate-900/60 flex items-start space-x-4">
+      <div class="w-10 h-10 rounded-xl bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 flex items-center justify-center shrink-0">
+        <i data-lucide="sparkles" class="w-5 h-5"></i>
+      </div>
+      <div>
+        <h4 class="font-bold text-white text-sm">Actionable Insights (Agent 07 Marketing Content Specialist)</h4>
+        <p class="text-xs text-slate-300 mt-1 leading-relaxed">
+          Compare trending columns above to discover multi-platform content synergies. High-volume Google search queries paired with real community discussions on Quora/Reddit provide high-intent SEO topics and viral social hooks.
+        </p>
       </div>
     </div>
 
   </main>
 
   <!-- FOOTER -->
-  <footer class="border-t border-slate-900 bg-slate-950 py-6 text-center text-xs text-slate-500">
-    <p>Project Five ("Raw data") — Daily Multi-Platform Trends Intelligence Agent</p>
-    <p class="mt-1">Automated 06:00 AM PKST Schedule • GitHub Actions Ready • Standalone Web App</p>
+  <footer class="border-t border-slate-900 bg-slate-950 py-4 text-center text-xs text-slate-500">
+    <p>Raw Data (Project Five) — Multi-Platform Trends Intelligence Matrix • GitHub Actions Automated @ 06:00 AM PKST</p>
   </footer>
 
   <script>
     let trendsData = null;
-    let currentPlatform = 'ALL';
+    let viewMode = 'matrix'; // 'matrix' or 'list'
 
-    // Platform styling metadata
-    const platformMeta = {
-      Google: { icon: 'search', color: 'bg-blue-500/10 text-blue-400 border-blue-500/20', badge: 'bg-blue-500' },
-      Reddit: { icon: 'message-square', color: 'bg-orange-500/10 text-orange-400 border-orange-500/20', badge: 'bg-orange-500' },
-      YouTube: { icon: 'play-circle', color: 'bg-red-500/10 text-red-400 border-red-500/20', badge: 'bg-red-500' },
-      Pinterest: { icon: 'pin', color: 'bg-rose-500/10 text-rose-400 border-rose-500/20', badge: 'bg-rose-500' },
-      Medium: { icon: 'book-open', color: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20', badge: 'bg-emerald-500' },
-      Quora: { icon: 'help-circle', color: 'bg-amber-500/10 text-amber-400 border-amber-500/20', badge: 'bg-amber-500' },
-      LinkedIn: { icon: 'briefcase', color: 'bg-sky-500/10 text-sky-400 border-sky-500/20', badge: 'bg-sky-500' },
-      Facebook: { icon: 'share-2', color: 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20', badge: 'bg-indigo-500' }
-    };
+    const platformColumns = [
+      { key: 'Google', name: 'Google', icon: '🔍', color: 'text-blue-400', badge: 'bg-blue-500/10 text-blue-400 border-blue-500/20' },
+      { key: 'Reddit', name: 'Reddit', icon: '👽', color: 'text-orange-400', badge: 'bg-orange-500/10 text-orange-400 border-orange-500/20' },
+      { key: 'YouTube', name: 'YouTube', icon: '▶️', color: 'text-red-400', badge: 'bg-red-500/10 text-red-400 border-red-500/20' },
+      { key: 'Pinterest', name: 'Pinterest', icon: '📌', color: 'text-rose-400', badge: 'bg-rose-500/10 text-rose-400 border-rose-500/20' },
+      { key: 'Medium', name: 'Medium', icon: '✍️', color: 'text-emerald-400', badge: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' },
+      { key: 'Quora', name: 'Quora', icon: '❓', color: 'text-amber-400', badge: 'bg-amber-500/10 text-amber-400 border-amber-500/20' },
+      { key: 'LinkedIn', name: 'LinkedIn', icon: '💼', color: 'text-sky-400', badge: 'bg-sky-500/10 text-sky-400 border-sky-500/20' },
+      { key: 'Facebook', name: 'Facebook', icon: '👥', color: 'text-indigo-400', badge: 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20' },
+    ];
 
-    // Live PKST Clock
+    const rankLabels = [
+      "Top 1st", "Top 2nd", "Top 3rd", "4th", "5th",
+      "6th", "7th", "8th", "9th", "10th"
+    ];
+
     function updateClock() {
       const now = new Date();
-      // UTC time + 5 hours for PKST
       const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
       const pkst = new Date(utc + (3600000 * 5));
-      
       const hours = String(pkst.getHours()).padStart(2, '0');
       const mins = String(pkst.getMinutes()).padStart(2, '0');
       const secs = String(pkst.getSeconds()).padStart(2, '0');
-      
       document.getElementById('pkst-clock').innerText = `${hours}:${mins}:${secs} PKST (UTC+5)`;
     }
     setInterval(updateClock, 1000);
@@ -253,100 +187,177 @@
         if (resp.ok) {
           trendsData = await resp.json();
           updateStats();
-          renderTrends();
-        } else {
-          // Fallback if static file loading
-          const respStatic = await fetch('data.json');
-          if (respStatic.ok) {
-            trendsData = await respStatic.json();
-            updateStats();
-            renderTrends();
-          }
+          renderTable();
+          return;
         }
-      } catch (err) {
-        console.warn('API error, attempting fallback load:', err);
-      }
+      } catch (e) {}
+
+      try {
+        const respStatic = await fetch('data.json');
+        if (respStatic.ok) {
+          trendsData = await respStatic.json();
+          updateStats();
+          renderTable();
+        }
+      } catch (e) {}
     }
 
     function updateStats() {
       if (!trendsData) return;
-      document.getElementById('stat-total-trends').innerText = `${trendsData.total_trends || 80} Items`;
-      document.getElementById('stat-last-gen').innerText = (trendsData.generated_at_pkst || 'Today').replace(' (UTC+5)', '');
-      document.getElementById('stat-time-ago').innerText = `Scheduled Daily @ 06:00 AM PKST`;
+      document.getElementById('stat-total-trends').innerText = `${trendsData.total_trends || 80} Items (10 per platform)`;
+      document.getElementById('stat-last-gen').innerText = (trendsData.generated_at_pkst || 'Today');
     }
 
-    function setPlatformFilter(platform) {
-      currentPlatform = platform;
-      document.querySelectorAll('.platform-tab').forEach(btn => {
-        if (btn.getAttribute('data-platform') === platform) {
-          btn.className = 'platform-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-indigo-600 text-white whitespace-nowrap transition';
-        } else {
-          btn.className = 'platform-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-slate-800 whitespace-nowrap transition';
-        }
-      });
-      renderTrends();
+    function setViewMode(mode) {
+      viewMode = mode;
+      document.getElementById('btn-view-matrix').className = mode === 'matrix' 
+        ? 'px-3 py-1 rounded-lg text-xs font-semibold bg-indigo-600 text-white flex items-center space-x-1 transition'
+        : 'px-3 py-1 rounded-lg text-xs font-semibold text-slate-400 hover:text-white flex items-center space-x-1 transition';
+
+      document.getElementById('btn-view-list').className = mode === 'list' 
+        ? 'px-3 py-1 rounded-lg text-xs font-semibold bg-indigo-600 text-white flex items-center space-x-1 transition'
+        : 'px-3 py-1 rounded-lg text-xs font-semibold text-slate-400 hover:text-white flex items-center space-x-1 transition';
+
+      renderTable();
     }
 
-    function renderTrends() {
-      const container = document.getElementById('trends-container');
+    function renderTable() {
+      const container = document.getElementById('view-container');
       if (!trendsData || !trendsData.platforms) {
-        container.innerHTML = `<div class="col-span-full py-16 text-center text-slate-500">No trends loaded. Click "Execute Trends Now".</div>`;
+        container.innerHTML = `<div class="py-16 text-center text-slate-500">No trend data loaded. Click "Execute Trends Now".</div>`;
         return;
       }
 
       const searchQuery = document.getElementById('search-input').value.toLowerCase();
-      let allItems = [];
 
-      for (const [platform, items] of Object.entries(trendsData.platforms)) {
-        if (currentPlatform === 'ALL' || currentPlatform === platform) {
-          items.forEach(item => {
-            if (!searchQuery || item.title.toLowerCase().includes(searchQuery) || (item.description && item.description.toLowerCase().includes(searchQuery))) {
-              allItems.push({ ...item, platformName: platform });
-            }
-          });
-        }
+      if (viewMode === 'matrix') {
+        renderMatrixView(container, searchQuery);
+      } else {
+        renderListView(container, searchQuery);
       }
-
-      if (allItems.length === 0) {
-        container.innerHTML = `<div class="col-span-full py-16 text-center text-slate-500">No matching trends found for "${searchQuery}".</div>`;
-        return;
-      }
-
-      container.innerHTML = allItems.map(item => {
-        const meta = platformMeta[item.platformName] || { color: 'bg-slate-800 text-slate-300', badge: 'bg-slate-600' };
-        return `
-          <div class="glass-card rounded-2xl p-5 flex flex-col justify-between transition hover:-translate-y-1 hover:shadow-xl hover:shadow-indigo-500/5 group">
-            <div class="space-y-3">
-              <div class="flex items-center justify-between">
-                <span class="px-2.5 py-1 rounded-lg text-xs font-bold border ${meta.color} flex items-center space-x-1.5">
-                  <span>${item.platformName}</span>
-                </span>
-                <span class="text-xs font-mono text-slate-400">#${item.rank}</span>
-              </div>
-              <div>
-                <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="font-bold text-sm text-slate-100 group-hover:text-indigo-400 line-clamp-2 transition leading-snug">
-                  ${item.title}
-                </a>
-                <p class="text-xs text-slate-400 mt-2 line-clamp-3 leading-relaxed">
-                  ${item.description || 'Trending discussion in past 24 hours.'}
-                </p>
-              </div>
-            </div>
-
-            <div class="pt-4 mt-4 border-t border-slate-800/80 flex items-center justify-between text-xs">
-              <span class="px-2 py-0.5 rounded-md bg-slate-900 text-slate-300 font-mono text-[11px] truncate max-w-[170px]" title="${item.traffic_volume}">
-                🔥 ${item.traffic_volume}
-              </span>
-              <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="text-indigo-400 hover:text-indigo-300 flex items-center space-x-1 font-semibold">
-                <span>View</span>
-                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-              </a>
-            </div>
-          </div>
-        `;
-      }).join('');
 
       lucide.createIcons();
+    }
+
+    // 1. Matrix View (Excel-style 8 columns side-by-side)
+    function renderMatrixView(container, searchQuery) {
+      let html = `
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse matrix-table">
+            <thead>
+              <tr class="bg-slate-950 border-b border-slate-800 text-xs font-bold text-slate-300 uppercase tracking-wider">
+                <th class="p-3.5 sticky-col bg-slate-950 border-r border-slate-800 w-28 text-center">Rank</th>
+                ${platformColumns.map(p => `
+                  <th class="p-3.5 border-r border-slate-800/80 matrix-cell">
+                    <div class="flex items-center space-x-2">
+                      <span class="text-base">${p.icon}</span>
+                      <span class="${p.color} font-bold">${p.name}</span>
+                    </div>
+                  </th>
+                `).join('')}
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800/60 text-xs">
+      `;
+
+      for (let r = 0; r < 10; r++) {
+        const rankLabel = rankLabels[r] || `#${r + 1}`;
+        html += `
+          <tr class="transition">
+            <td class="p-3.5 sticky-col bg-slate-950 border-r border-slate-800 font-mono font-bold text-slate-400 text-center">
+              <span class="px-2 py-1 rounded-md bg-slate-900 border border-slate-800 text-[11px]">${rankLabel}</span>
+            </td>
+        `;
+
+        for (const p of platformColumns) {
+          const items = trendsData.platforms[p.key] || [];
+          const item = items[r] || null;
+
+          if (!item) {
+            html += `<td class="p-3.5 border-r border-slate-800/60 text-slate-600 italic matrix-cell">-</td>`;
+            continue;
+          }
+
+          const matches = !searchQuery || item.title.toLowerCase().includes(searchQuery) || (item.description && item.description.toLowerCase().includes(searchQuery));
+          const highlightClass = matches ? '' : 'opacity-20';
+
+          html += `
+            <td class="p-3.5 border-r border-slate-800/60 align-top matrix-cell ${highlightClass}">
+              <div class="flex flex-col justify-between h-full space-y-2">
+                <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="font-bold text-slate-100 hover:text-indigo-400 transition leading-snug line-clamp-2" title="${item.title}">
+                  ${item.title}
+                </a>
+                <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed">
+                  ${item.description || ''}
+                </p>
+                <div class="pt-1.5 flex items-center justify-between border-t border-slate-800/50 text-[10px]">
+                  <span class="px-1.5 py-0.5 rounded bg-slate-900 text-amber-300 font-mono font-medium truncate max-w-[130px]">
+                    🔥 ${item.traffic_volume || 'Trending'}
+                  </span>
+                  <a href="${item.url}" target="_blank" class="text-indigo-400 hover:text-indigo-300 flex items-center space-x-0.5 font-semibold">
+                    <span>Link</span>
+                    <i data-lucide="external-link" class="w-3 h-3"></i>
+                  </a>
+                </div>
+              </div>
+            </td>
+          `;
+        }
+
+        html += `</tr>`;
+      }
+
+      html += `
+            </tbody>
+          </table>
+        </div>
+      `;
+
+      container.innerHTML = html;
+    }
+
+    // 2. Structured List View
+    function renderListView(container, searchQuery) {
+      let html = `<div class="divide-y divide-slate-800">`;
+
+      for (const p of platformColumns) {
+        const items = trendsData.platforms[p.key] || [];
+        html += `
+          <div class="p-4 bg-slate-950/60">
+            <div class="flex items-center space-x-2 mb-3">
+              <span class="text-lg">${p.icon}</span>
+              <h3 class="font-bold text-sm ${p.color}">${p.name} — Top 10 Searches & Trends</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        `;
+
+        items.forEach((item, idx) => {
+          const matches = !searchQuery || item.title.toLowerCase().includes(searchQuery) || (item.description && item.description.toLowerCase().includes(searchQuery));
+          if (!matches) return;
+
+          html += `
+            <div class="p-3 rounded-xl bg-slate-900 border border-slate-800/80 flex items-start justify-between space-x-3">
+              <div class="flex items-start space-x-2.5">
+                <span class="px-2 py-0.5 rounded-md bg-slate-950 text-slate-400 text-xs font-mono font-bold">#${item.rank || idx + 1}</span>
+                <div>
+                  <a href="${item.url}" target="_blank" class="font-bold text-xs text-white hover:text-indigo-400 transition leading-snug">
+                    ${item.title}
+                  </a>
+                  <p class="text-[11px] text-slate-400 mt-1 line-clamp-1">${item.description || ''}</p>
+                </div>
+              </div>
+              <span class="px-2 py-0.5 rounded bg-slate-950 text-amber-300 font-mono text-[10px] whitespace-nowrap">
+                ${item.traffic_volume}
+              </span>
+            </div>
+          `;
+        });
+
+        html += `</div></div>`;
+      }
+
+      html += `</div>`;
+      container.innerHTML = html;
     }
 
     async function triggerRefresh() {
@@ -364,7 +375,7 @@
         if (result.success && result.data) {
           trendsData = result.data;
           updateStats();
-          renderTrends();
+          renderTable();
         }
       } catch (err) {
         alert('Refresh failed: ' + err.message);
@@ -402,7 +413,6 @@
       URL.revokeObjectURL(url);
     }
 
-    // Initialize
     loadTrends();
   </script>
 </body>
