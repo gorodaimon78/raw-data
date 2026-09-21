@@ -45,6 +45,9 @@ REPORTS_DIR = BASE_DIR / "reports"
 WEB_DIR.mkdir(parents=True, exist_ok=True)
 REPORTS_DIR.mkdir(parents=True, exist_ok=True)
 
+APP_NAME = "Goro Daimon"
+APP_VERSION = "v1"
+
 logger = logging.getLogger("web_app")
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 
@@ -142,7 +145,9 @@ class TrendsAPIHandler(SimpleHTTPRequestHandler):
                 "time_pkst": pkst_now.strftime("%Y-%m-%d %H:%M:%S PKST"),
                 "daily_schedule": "06:00 AM PKST (01:00 UTC)",
                 "platforms_count": 8,
-                "project_name": "Project Five (Raw data) -> Project 1 (YourOwnPDF Traffic Engine)"
+                "project_name": "Project Five (Goro Daimon) -> Project 1 (YourOwnPDF Traffic Engine)",
+                "version": APP_VERSION,
+                "app_name": APP_NAME
             }
             self.wfile.write(json.dumps(status_data).encode("utf-8"))
             return
