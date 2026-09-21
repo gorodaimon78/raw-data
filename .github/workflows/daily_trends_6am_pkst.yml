@@ -1,0 +1,63 @@
+name: Daily 6:00 AM PKST Trends Intelligence Automation
+
+on:
+  schedule:
+    # 01:00 UTC corresponds to 06:00 AM PKST (Pakistan Standard Time, UTC+5)
+    - cron: '0 1 * * *'
+  workflow_dispatch: # Allows manual on-demand execution anytime from GitHub UI
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "daily-trends"
+  cancel-in-progress: false
+
+jobs:
+  collect-trends:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: 📦 Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests python-dotenv rich
+
+      - name: 🌐 Run 8-Platform Trends Intelligence Scraper
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+        run: |
+          python supervisor.py run-trends
+
+      - name: 🔄 Sync Latest Data for Web Dashboard & GitHub Pages
+        run: |
+          mkdir -p docs web
+          cp web/index.html docs/index.html
+          LATEST_JSON=$(ls -t reports/daily_trends_*.json | head -1)
+          cp "$LATEST_JSON" docs/data.json
+          cp "$LATEST_JSON" web/data.json
+
+      - name: 💾 Commit & Push Daily Reports to GitHub
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add reports/ docs/ web/
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "chore(trends): automated daily 6:00 AM PKST intelligence digest [skip ci]"
+            git push origin HEAD:${{ github.ref_name }}
+          fi
