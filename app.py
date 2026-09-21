@@ -1,6 +1,7 @@
 """
 Project Five ("Raw data") - Web Application Server
-Serves the modern Semantic Trends & Traffic Intelligence Dashboard and API.
+Serves the modern Semantic Trends & Traffic Intelligence Dashboard and API,
+including Agent 07 Live Human-Outreach Engine with randomized jitter delays and direct jump-links.
 """
 import os
 import sys
@@ -22,6 +23,11 @@ from urllib.parse import urlparse, parse_qs
 from datetime import datetime, timezone, timedelta
 
 from agents_code.trend_collector.trend_engine import TrendEngine
+from agents_code.07_marketing_content.outreach_engine import (
+    Agent07OutreachManager,
+    draft_human_reply,
+    draft_polite_defensive_reply
+)
 
 BASE_DIR = Path(__file__).resolve().parent
 WEB_DIR = BASE_DIR / "web"
@@ -54,17 +60,6 @@ def get_latest_trends_data(keyword: Optional[str] = None):
         return json.load(f)
 
 
-def generate_helpful_reply(question: str, platform: str) -> str:
-    """Drafts a helpful, non-spammy community response linking to YourOwnPDF (Project 1)."""
-    return (
-        f"Hi! To solve this easily without installing bulky desktop software or paying for Adobe:\n\n"
-        f"1. You can use a client-side web tool like **YourOwnPDF** (https://yourownpdf.com).\n"
-        f"2. Because it processes files directly inside your browser using client-side WebAssembly, your documents are never uploaded to any remote server, ensuring 100% data privacy.\n"
-        f"3. It lets you compress, merge, split, and edit without file size limits or watermarks.\n\n"
-        f"Hope this helps with your workflow!"
-    )
-
-
 class TrendsAPIHandler(SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=str(WEB_DIR), **kwargs)
@@ -80,6 +75,16 @@ class TrendsAPIHandler(SimpleHTTPRequestHandler):
             self.send_header("Access-Control-Allow-Origin", "*")
             self.end_headers()
             data = get_latest_trends_data(keyword=keyword)
+            self.wfile.write(json.dumps(data, ensure_ascii=False).encode("utf-8"))
+            return
+
+        elif parsed.path == "/api/agent07/history":
+            manager = Agent07OutreachManager()
+            data = manager.get_latest_outreach_log()
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
             self.wfile.write(json.dumps(data, ensure_ascii=False).encode("utf-8"))
             return
             
@@ -114,17 +119,15 @@ class TrendsAPIHandler(SimpleHTTPRequestHandler):
 
     def do_POST(self):
         parsed = urlparse(self.path)
+        content_length = int(self.headers.get("Content-Length", 0))
+        body_str = self.rfile.read(content_length).decode("utf-8") if content_length > 0 else "{}"
+        try:
+            payload = json.loads(body_str) if body_str else {}
+        except Exception:
+            payload = {}
         
         if parsed.path == "/api/refresh":
-            content_length = int(self.headers.get("Content-Length", 0))
-            body_str = self.rfile.read(content_length).decode("utf-8") if content_length > 0 else "{}"
-            try:
-                payload = json.loads(body_str) if body_str else {}
-            except Exception:
-                payload = {}
-                
             keyword = payload.get("keyword", "PDF")
-            
             try:
                 engine = TrendEngine()
                 res = engine.run_daily_trend_collection(keyword=keyword)
@@ -145,22 +148,36 @@ class TrendsAPIHandler(SimpleHTTPRequestHandler):
             return
 
         elif parsed.path == "/api/draft-reply":
-            content_length = int(self.headers.get("Content-Length", 0))
-            body_str = self.rfile.read(content_length).decode("utf-8") if content_length > 0 else "{}"
-            try:
-                payload = json.loads(body_str)
-            except Exception:
-                payload = {}
-                
             q = payload.get("question", "")
-            p = payload.get("platform", "Quora")
-            reply = generate_helpful_reply(q, p)
-            
+            p = payload.get("platform", "Reddit")
+            reply = draft_human_reply(q, platform=p)
             self.send_response(200)
             self.send_header("Content-Type", "application/json; charset=utf-8")
             self.send_header("Access-Control-Allow-Origin", "*")
             self.end_headers()
             self.wfile.write(json.dumps({"success": True, "reply": reply}).encode("utf-8"))
+            return
+
+        elif parsed.path == "/api/agent07/counter-reply":
+            user_complaint = payload.get("complaint", "")
+            orig_q = payload.get("question", "")
+            counter_reply = draft_polite_defensive_reply(user_complaint, orig_q)
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": True, "counter_reply": counter_reply}).encode("utf-8"))
+            return
+
+        elif parsed.path == "/api/agent07/dispatch-campaign":
+            questions = payload.get("questions", [])
+            manager = Agent07OutreachManager()
+            scheduled = manager.queue_outreach_campaign(questions)
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": True, "scheduled_count": len(scheduled), "items": scheduled}).encode("utf-8"))
             return
 
         self.send_response(404)
@@ -173,7 +190,7 @@ def run_server(port: int = 8080):
     print(f"===============================================================")
     print(f"  🎯 Raw Data (Project Five) Semantic Traffic Engine Active!")
     print(f"  👉 Open URL: http://localhost:{port}")
-    print(f"  🚀 Traffic Mission: Project 1 (YourOwnPDF)")
+    print(f"  🤖 Agent 07 Human Outreach & Traffic Engine Active!")
     print(f"===============================================================")
     try:
         httpd.serve_forever()

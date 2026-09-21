@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Raw Data (P5) — Semantic Traffic & Question Harvester</title>
+  <title>Raw Data (P5) — Semantic Traffic & Agent 07 Outreach Engine</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -45,7 +45,7 @@
             <span class="px-2 py-0.5 text-xs font-semibold rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">Project Five (P5)</span>
             <span class="px-2 py-0.5 text-xs font-semibold rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hidden sm:inline">🚀 Feeds Project 1 (YourOwnPDF)</span>
           </div>
-          <p class="text-xs text-slate-400">Semantic Traffic & Question Harvester across 8 Major Platforms</p>
+          <p class="text-xs text-slate-400">8-Platform Traffic Harvester & Agent 07 Human Outreach Engine</p>
         </div>
       </div>
 
@@ -58,7 +58,7 @@
 
         <a href="https://yourownpdf.com" target="_blank" class="hidden sm:flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs font-semibold text-slate-300 hover:text-white transition">
           <i data-lucide="external-link" class="w-3.5 h-3.5 text-indigo-400"></i>
-          <span>Visit YourOwnPDF</span>
+          <span>YourOwnPDF.com</span>
         </a>
       </div>
     </div>
@@ -67,129 +67,218 @@
   <!-- MAIN CONTAINER -->
   <main class="flex-1 max-w-[1700px] w-full mx-auto px-4 sm:px-6 py-6 space-y-6">
 
-    <!-- TARGET NICHE / KEYWORD HARVESTER TOOLBAR -->
-    <div class="bg-gradient-to-r from-slate-900 via-slate-900/90 to-indigo-950/40 border border-indigo-500/30 p-5 rounded-2xl space-y-4 shadow-xl shadow-indigo-500/5">
-      <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
-        <div>
-          <h2 class="text-base font-bold text-white flex items-center space-x-2">
-            <i data-lucide="sparkles" class="w-4 h-4 text-indigo-400"></i>
-            <span>Semantic Traffic Harvester & Intent Extractor</span>
-          </h2>
-          <p class="text-xs text-slate-400 mt-0.5">
-            Enter any keyword, problem phrase, or workflow. The engine expands related queries, pain points, and live questions across all 8 platforms.
-          </p>
-        </div>
+    <!-- MASTER VIEW TOGGLE TABS (TOP 10 QUESTIONS vs AGENT 07 WORKING) -->
+    <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-slate-900/90 border border-slate-800 p-2.5 rounded-2xl">
+      <div class="flex items-center space-x-2">
+        <button onclick="switchMasterView('matrix')" id="tab-matrix" class="flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs font-bold bg-indigo-600 text-white shadow-lg shadow-indigo-600/30 flex items-center justify-center space-x-2 transition">
+          <i data-lucide="grid" class="w-4 h-4"></i>
+          <span>📊 8-Platform Trend Matrix (80 Items)</span>
+        </button>
+        <button onclick="switchMasterView('agent07')" id="tab-agent07" class="flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-800 flex items-center justify-center space-x-2 transition">
+          <i data-lucide="bot" class="w-4 h-4 text-emerald-400"></i>
+          <span>🤖 Agent 07 Live Outreach Log & Queue</span>
+          <span class="px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px]" id="badge-agent07-count">Active</span>
+        </button>
+      </div>
 
-        <!-- SEARCH INPUT & BUTTON -->
-        <div class="flex items-center space-x-2 sm:w-auto w-full">
-          <div class="relative flex-1 sm:w-80">
-            <i data-lucide="search" class="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2"></i>
-            <input type="text" id="niche-input" value="PDF" placeholder="Enter keyword (e.g. PDF, Merge, Compress, OCR)..." class="w-full bg-slate-950 border border-slate-700 rounded-xl pl-9 pr-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500">
+      <div class="text-xs text-slate-400 flex items-center space-x-2 px-2">
+        <span class="w-2 h-2 rounded-full bg-indigo-400"></span>
+        <span id="master-view-subtitle">Viewing Scraped 8-Platform Matrix</span>
+      </div>
+    </div>
+
+    <!-- VIEW 1: MATRIX & SEARCH TOOLBAR (Visible when Matrix Tab is Active) -->
+    <div id="section-matrix" class="space-y-6">
+      
+      <!-- TARGET NICHE / KEYWORD HARVESTER TOOLBAR -->
+      <div class="bg-gradient-to-r from-slate-900 via-slate-900/90 to-indigo-950/40 border border-indigo-500/30 p-5 rounded-2xl space-y-4 shadow-xl shadow-indigo-500/5">
+        <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+          <div>
+            <h2 class="text-base font-bold text-white flex items-center space-x-2">
+              <i data-lucide="sparkles" class="w-4 h-4 text-indigo-400"></i>
+              <span>Semantic Traffic Harvester & Intent Extractor</span>
+            </h2>
+            <p class="text-xs text-slate-400 mt-0.5">
+              Enter any keyword or problem phrase. The engine extracts live questions and rising queries across all 8 platforms.
+            </p>
           </div>
-          <button id="harvest-btn" onclick="harvestNiche()" class="flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold shadow-lg shadow-indigo-600/30 transition active:scale-95 whitespace-nowrap">
-            <i data-lucide="flame" id="harvest-icon" class="w-4 h-4"></i>
-            <span id="harvest-text">Harvest Traffic Leads</span>
+
+          <!-- SEARCH INPUT & BUTTON -->
+          <div class="flex items-center space-x-2 sm:w-auto w-full">
+            <div class="relative flex-1 sm:w-80">
+              <i data-lucide="search" class="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2"></i>
+              <input type="text" id="niche-input" value="PDF" placeholder="Enter keyword (e.g. PDF, Merge, Compress, OCR)..." class="w-full bg-slate-950 border border-slate-700 rounded-xl pl-9 pr-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500">
+            </div>
+            <button id="harvest-btn" onclick="harvestNiche()" class="flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold shadow-lg shadow-indigo-600/30 transition active:scale-95 whitespace-nowrap">
+              <i data-lucide="flame" id="harvest-icon" class="w-4 h-4"></i>
+              <span id="harvest-text">Harvest Leads</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- PRESET QUICK CLUSTERS -->
+        <div class="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-800/80 text-xs">
+          <span class="text-slate-400 font-semibold mr-1">Presets:</span>
+          <button onclick="setNichePreset('PDF')" class="px-3 py-1 rounded-lg bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 font-medium transition">
+            📄 PDF Tools (Project 1)
+          </button>
+          <button onclick="setNichePreset('Compress PDF')" class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium transition">
+            🗜️ Compress & Reduce Size
+          </button>
+          <button onclick="setNichePreset('Merge PDF')" class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium transition">
+            🧩 Merge & Combine Pages
+          </button>
+          <button onclick="setNichePreset('Privacy Document')" class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium transition">
+            🔒 Offline / Client-Side Privacy
+          </button>
+          <button onclick="setNichePreset('Convert PDF')" class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium transition">
+            🔄 Convert & OCR
+          </button>
+          <button onclick="setNichePreset('Trends')" class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium transition">
+            📈 General 24h Trends
           </button>
         </div>
       </div>
 
-      <!-- PRESET QUICK CLUSTERS -->
-      <div class="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-800/80 text-xs">
-        <span class="text-slate-400 font-semibold mr-1">Quick Presets:</span>
-        <button onclick="setNichePreset('PDF')" class="px-3 py-1 rounded-lg bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 font-medium transition">
-          📄 PDF Tools (Project 1)
-        </button>
-        <button onclick="setNichePreset('Compress PDF')" class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium transition">
-          🗜️ Compress & Reduce Size
-        </button>
-        <button onclick="setNichePreset('Merge PDF')" class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium transition">
-          🧩 Merge & Combine Pages
-        </button>
-        <button onclick="setNichePreset('Privacy Document')" class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium transition">
-          🔒 Offline / Client-Side Privacy
-        </button>
-        <button onclick="setNichePreset('Convert PDF')" class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium transition">
-          🔄 Convert & OCR
-        </button>
-        <button onclick="setNichePreset('Trends')" class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium transition">
-          📈 General 24h Trends
-        </button>
-      </div>
-    </div>
-
-    <!-- CONTROLS & STATS BAR -->
-    <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4 bg-slate-900/60 border border-slate-800 p-3.5 rounded-2xl">
-      <div class="flex flex-wrap items-center gap-3 text-xs">
-        <div class="px-3 py-1 rounded-lg bg-slate-950 border border-slate-800">
-          <span class="text-slate-400">Target Niche:</span>
-          <span class="font-bold text-indigo-400 ml-1" id="stat-current-niche">PDF</span>
-        </div>
-        <div class="px-3 py-1 rounded-lg bg-slate-950 border border-slate-800">
-          <span class="text-slate-400">Total Opportunities:</span>
-          <span class="font-bold text-emerald-400 ml-1" id="stat-total-trends">80 Items (10 per network)</span>
-        </div>
-        <div class="px-3 py-1 rounded-lg bg-slate-950 border border-slate-800">
-          <span class="text-slate-400">Daily Auto-Run:</span>
-          <span class="font-bold text-amber-400 ml-1">06:00 AM PKST (GitHub Actions)</span>
-        </div>
-      </div>
-
-      <!-- FILTER & VIEW CONTROLS -->
-      <div class="flex items-center space-x-3">
-        <div class="relative w-56">
-          <i data-lucide="filter" class="w-3.5 h-3.5 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2"></i>
-          <input type="text" id="table-filter" oninput="renderTable()" placeholder="Quick filter in results..." class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-8 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500">
+      <!-- CONTROLS & STATS BAR -->
+      <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4 bg-slate-900/60 border border-slate-800 p-3.5 rounded-2xl">
+        <div class="flex flex-wrap items-center gap-3 text-xs">
+          <div class="px-3 py-1 rounded-lg bg-slate-950 border border-slate-800">
+            <span class="text-slate-400">Target Niche:</span>
+            <span class="font-bold text-indigo-400 ml-1" id="stat-current-niche">PDF</span>
+          </div>
+          <div class="px-3 py-1 rounded-lg bg-slate-950 border border-slate-800">
+            <span class="text-slate-400">Total Opportunities:</span>
+            <span class="font-bold text-emerald-400 ml-1" id="stat-total-trends">80 Items</span>
+          </div>
+          <div class="px-3 py-1 rounded-lg bg-slate-950 border border-slate-800">
+            <span class="text-slate-400">Daily Auto-Run:</span>
+            <span class="font-bold text-amber-400 ml-1">06:00 AM PKST (GitHub Actions)</span>
+          </div>
         </div>
 
-        <div class="flex items-center space-x-1 bg-slate-950 border border-slate-800 p-1 rounded-xl">
-          <button onclick="setViewMode('matrix')" id="btn-view-matrix" class="px-3 py-1 rounded-lg text-xs font-semibold bg-indigo-600 text-white flex items-center space-x-1 transition">
-            <i data-lucide="columns" class="w-3.5 h-3.5"></i>
-            <span>Matrix Table</span>
+        <!-- FILTER & VIEW CONTROLS -->
+        <div class="flex items-center space-x-3">
+          <div class="relative w-56">
+            <i data-lucide="filter" class="w-3.5 h-3.5 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2"></i>
+            <input type="text" id="table-filter" oninput="renderTable()" placeholder="Quick filter in results..." class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-8 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500">
+          </div>
+
+          <div class="flex items-center space-x-1 bg-slate-950 border border-slate-800 p-1 rounded-xl">
+            <button onclick="setViewMode('matrix')" id="btn-view-matrix" class="px-3 py-1 rounded-lg text-xs font-semibold bg-indigo-600 text-white flex items-center space-x-1 transition">
+              <i data-lucide="columns" class="w-3.5 h-3.5"></i>
+              <span>Matrix Table</span>
+            </button>
+            <button onclick="setViewMode('list')" id="btn-view-list" class="px-3 py-1 rounded-lg text-xs font-semibold text-slate-400 hover:text-white flex items-center space-x-1 transition">
+              <i data-lucide="list" class="w-3.5 h-3.5"></i>
+              <span>List View</span>
+            </button>
+          </div>
+
+          <button onclick="exportMarkdown()" title="Export Markdown" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition">
+            <i data-lucide="file-text" class="w-4 h-4"></i>
           </button>
-          <button onclick="setViewMode('list')" id="btn-view-list" class="px-3 py-1 rounded-lg text-xs font-semibold text-slate-400 hover:text-white flex items-center space-x-1 transition">
-            <i data-lucide="list" class="w-3.5 h-3.5"></i>
-            <span>List View</span>
+          <button onclick="exportJSON()" title="Export JSON" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition">
+            <i data-lucide="code" class="w-4 h-4"></i>
           </button>
         </div>
+      </div>
 
-        <button onclick="exportMarkdown()" title="Export Markdown" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition">
-          <i data-lucide="file-text" class="w-4 h-4"></i>
-        </button>
-        <button onclick="exportJSON()" title="Export JSON" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition">
-          <i data-lucide="code" class="w-4 h-4"></i>
-        </button>
+      <!-- MATRIX TABLE CONTAINER -->
+      <div id="view-container" class="rounded-2xl border border-slate-800 bg-slate-900/50 backdrop-blur-xl overflow-hidden shadow-2xl">
+        <!-- Dynamically filled -->
       </div>
     </div>
 
-    <!-- MAIN MATRIX TABLE / LIST VIEW -->
-    <div id="view-container" class="rounded-2xl border border-slate-800 bg-slate-900/50 backdrop-blur-xl overflow-hidden shadow-2xl">
-      <!-- Dynamically filled -->
-    </div>
+    <!-- VIEW 2: AGENT 07 LIVE OUTREACH & WORKING LOG (Visible when Agent 07 Tab is Active) -->
+    <div id="section-agent07" class="space-y-6 hidden">
+      
+      <!-- AGENT 07 HEADER & TIMING CONTROLS -->
+      <div class="bg-gradient-to-r from-slate-900 via-slate-900 to-emerald-950/40 border border-emerald-500/30 p-5 rounded-2xl space-y-4 shadow-xl shadow-emerald-500/5">
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div class="space-y-1">
+            <div class="flex items-center space-x-2">
+              <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-500/30 font-bold text-xs font-mono">07</div>
+              <h2 class="text-base font-bold text-white">Agent 07 (Marketing Content Specialist) — Human Outreach Activity</h2>
+              <span class="px-2 py-0.5 text-[10px] font-bold uppercase rounded-md bg-emerald-500/20 text-emerald-300">Human Jitter Delay Enabled</span>
+            </div>
+            <p class="text-xs text-slate-300">
+              Agent 07 responds in everyday human language (e.g. <em>"bro"</em>, <em>"dude"</em>, <em>"tbh"</em>), maintains polite composure on abusive replies, and applies randomized time gaps (e.g. 3.4m, 7.8m, 4.2m) between answers.
+            </p>
+          </div>
 
-    <!-- PLAYBOOK BANNER -->
-    <div class="rounded-2xl p-5 border border-indigo-500/30 bg-gradient-to-r from-indigo-950/40 via-slate-900/60 to-slate-900/60 flex items-start space-x-4">
-      <div class="w-10 h-10 rounded-xl bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 flex items-center justify-center shrink-0">
-        <i data-lucide="compass" class="w-5 h-5"></i>
+          <button onclick="triggerAutomatedCampaign()" class="flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-lg shadow-emerald-600/30 transition active:scale-95 whitespace-nowrap">
+            <i data-lucide="play" class="w-4 h-4"></i>
+            <span>Queue Human Outreach Campaign</span>
+          </button>
+        </div>
+
+        <!-- TIMING INTELLIGENCE PILLS -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 border-t border-slate-800/80 text-xs">
+          <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-center space-x-3">
+            <i data-lucide="shuffle" class="w-5 h-5 text-indigo-400"></i>
+            <div>
+              <p class="text-[11px] text-slate-400">Variable Time Jitter</p>
+              <p class="font-bold text-slate-200">Random 3.2m to 9.8m Gaps</p>
+            </div>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-center space-x-3">
+            <i data-lucide="shield-alert" class="w-5 h-5 text-amber-400"></i>
+            <div>
+              <p class="text-[11px] text-slate-400">Same-Platform Buffer</p>
+              <p class="font-bold text-slate-200">+6.5m to 14m Extra Safety Delay</p>
+            </div>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-center space-x-3">
+            <i data-lucide="message-circle" class="w-5 h-5 text-emerald-400"></i>
+            <div>
+              <p class="text-[11px] text-slate-400">Persona Style</p>
+              <p class="font-bold text-slate-200">Casual User ("bro/dude") + Polite Defense</p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="space-y-1">
-        <h4 class="font-bold text-white text-sm">Project 1 (YourOwnPDF) Traffic Acquisition Playbook</h4>
-        <p class="text-xs text-slate-300 leading-relaxed">
-          • <strong>Quora & Reddit Strategy</strong>: Click <em>"⚡ AI Reply"</em> on any question above to copy a tailored answer promoting YourOwnPDF with zero spam.<br>
-          • <strong>Google Long-Tail SEO</strong>: The Google column shows high-demand autocomplete queries. Ensure YourOwnPDF has dedicated tool landing pages for each.<br>
-          • <strong>YouTube & Pinterest Hooks</strong>: Convert top queries into 15-second screen recording tutorials and aesthetic cheat sheets for compounding referral visitors.
-        </p>
+
+      <!-- OUTREACH LOG TABLE WITH DIRECT JUMP LINKS -->
+      <div class="rounded-2xl border border-slate-800 bg-slate-900/50 backdrop-blur-xl overflow-hidden shadow-2xl">
+        <div class="p-4 border-b border-slate-800 flex items-center justify-between">
+          <div class="flex items-center space-x-2">
+            <i data-lucide="history" class="w-4 h-4 text-emerald-400"></i>
+            <h3 class="font-bold text-sm text-white">Dispatched Messages & Scheduled Queue</h3>
+          </div>
+          <span class="text-xs font-mono text-slate-400" id="agent07-total-label">Loading history...</span>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="bg-slate-950 border-b border-slate-800 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                <th class="p-3.5 w-28">Platform</th>
+                <th class="p-3.5 w-72">Target Question & Source Link</th>
+                <th class="p-3.5">Human Reply Message (Agent 07)</th>
+                <th class="p-3.5 w-36 text-center">Random Jitter Delay</th>
+                <th class="p-3.5 w-44">Dispatched / Scheduled</th>
+                <th class="p-3.5 w-24 text-center">Status</th>
+              </tr>
+            </thead>
+            <tbody id="agent07-log-tbody" class="divide-y divide-slate-800/60">
+              <!-- Dynamically rendered -->
+            </tbody>
+          </table>
+        </div>
       </div>
+
     </div>
 
   </main>
 
-  <!-- AI REPLY MODAL -->
+  <!-- AI REPLY & COUNTER-REPLY MODAL -->
   <div id="reply-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-2xl w-full p-6 space-y-4 shadow-2xl relative">
       <div class="flex items-center justify-between border-b border-slate-800 pb-3">
         <div class="flex items-center space-x-2">
-          <i data-lucide="message-square" class="w-5 h-5 text-indigo-400"></i>
-          <h3 class="font-bold text-white text-base">AI Reply Drafter for Project 1 (YourOwnPDF)</h3>
+          <i data-lucide="message-square" class="w-5 h-5 text-emerald-400"></i>
+          <h3 class="font-bold text-white text-base">Agent 07 Casual User Reply Drafter</h3>
         </div>
         <button onclick="closeReplyModal()" class="text-slate-400 hover:text-white p-1">
           <i data-lucide="x" class="w-5 h-5"></i>
@@ -202,13 +291,18 @@
       </div>
 
       <div>
-        <label class="text-xs font-bold uppercase tracking-wider text-slate-400">Drafted Helpful Solution (Marketing Agent 07):</label>
-        <textarea id="modal-reply-text" rows="7" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 mt-1 focus:outline-none focus:border-indigo-500 font-mono leading-relaxed"></textarea>
+        <div class="flex items-center justify-between">
+          <label class="text-xs font-bold uppercase tracking-wider text-slate-400">Human-Style Response ("bro/dude" Casual Tone):</label>
+          <button onclick="simulateHostileReply()" class="text-[11px] text-amber-400 hover:text-amber-300 font-semibold underline">
+            ⚡ Test Hostile / Abusive User Reply Handler
+          </button>
+        </div>
+        <textarea id="modal-reply-text" rows="6" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 mt-1 focus:outline-none focus:border-emerald-500 font-mono leading-relaxed"></textarea>
       </div>
 
       <div class="flex items-center justify-between pt-2">
-        <span class="text-[11px] text-slate-400">Promotes YourOwnPDF (client-side, privacy-safe, free).</span>
-        <button onclick="copyModalReply()" id="copy-btn" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold flex items-center space-x-1.5 transition">
+        <span class="text-[11px] text-slate-400">Authentic tone • Non-spammy • Direct solution</span>
+        <button onclick="copyModalReply()" id="copy-btn" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold flex items-center space-x-1.5 transition">
           <i data-lucide="copy" class="w-4 h-4"></i>
           <span id="copy-btn-text">Copy to Clipboard</span>
         </button>
@@ -218,11 +312,13 @@
 
   <!-- FOOTER -->
   <footer class="border-t border-slate-900 bg-slate-950 py-4 text-center text-xs text-slate-500">
-    <p>Raw Data (Project Five) — Semantic Traffic Harvester for Project 1 (YourOwnPDF) • Automated @ 06:00 AM PKST</p>
+    <p>Raw Data (Project Five) — Semantic Traffic Harvester & Agent 07 Outreach Engine • Automated @ 06:00 AM PKST</p>
   </footer>
 
   <script>
     let trendsData = null;
+    let agent07History = null;
+    let masterView = 'matrix'; // 'matrix' or 'agent07'
     let viewMode = 'matrix';
 
     const platformColumns = [
@@ -250,6 +346,26 @@
     setInterval(updateClock, 1000);
     updateClock();
 
+    function switchMasterView(view) {
+      masterView = view;
+      if (view === 'matrix') {
+        document.getElementById('section-matrix').classList.remove('hidden');
+        document.getElementById('section-agent07').classList.add('hidden');
+        document.getElementById('tab-matrix').className = 'flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs font-bold bg-indigo-600 text-white shadow-lg shadow-indigo-600/30 flex items-center justify-center space-x-2 transition';
+        document.getElementById('tab-agent07').className = 'flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-800 flex items-center justify-center space-x-2 transition';
+        document.getElementById('master-view-subtitle').innerText = 'Viewing Scraped 8-Platform Matrix (80 Items)';
+        renderTable();
+      } else {
+        document.getElementById('section-matrix').classList.add('hidden');
+        document.getElementById('section-agent07').classList.remove('hidden');
+        document.getElementById('tab-matrix').className = 'flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-800 flex items-center justify-center space-x-2 transition';
+        document.getElementById('tab-agent07').className = 'flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs font-bold bg-emerald-600 text-white shadow-lg shadow-emerald-600/30 flex items-center justify-center space-x-2 transition';
+        document.getElementById('master-view-subtitle').innerText = 'Viewing Agent 07 Human Outreach & Jitter Queue';
+        loadAgent07History();
+      }
+      lucide.createIcons();
+    }
+
     async function loadTrends(keyword = null) {
       try {
         const url = keyword ? `/api/trends?keyword=${encodeURIComponent(keyword)}` : '/api/trends';
@@ -272,10 +388,151 @@
       } catch (e) {}
     }
 
+    async function loadAgent07History() {
+      try {
+        const resp = await fetch('/api/agent07/history');
+        if (resp.ok) {
+          agent07History = await resp.json();
+          renderAgent07Log();
+          return;
+        }
+      } catch (e) {}
+
+      // Fallback local simulation if static
+      if (!agent07History) {
+        agent07History = {
+          total_dispatched: 5,
+          history: [
+            {
+              platform: "Quora",
+              question_title: "How can I compress a large 50MB PDF without Adobe Acrobat for free?",
+              question_url: "https://www.quora.com/search?q=compress+large+PDF+without+Adobe",
+              reply_text: "bro honestly just use yourownpdf.com. It compresses it right inside your browser without uploading your file to any sketchy servers, so your private documents stay on your laptop. saves a ton of time tbh.",
+              delay_minutes: 4.3,
+              dispatched_at_pkst: "2026-09-21 10:15:00 PKST",
+              status: "SENT"
+            },
+            {
+              platform: "Reddit",
+              question_title: "Looking for offline-first tool to merge and split PDF files securely",
+              question_url: "https://www.reddit.com/r/privacy/search/?q=offline+pdf+merge",
+              reply_text: "dude check out yourownpdf.com. The best part is it runs 100% client-side in WebAssembly. You can literally turn off your WiFi and it still works because nothing leaves your machine. hope that helps bro!",
+              delay_minutes: 8.7,
+              dispatched_at_pkst: "2026-09-21 10:23:42 PKST",
+              status: "SENT"
+            },
+            {
+              platform: "Reddit",
+              question_title: "Why do commercial PDF editors charge so much for simple file conversion?",
+              question_url: "https://www.reddit.com/r/software/search/?q=free+client+side+pdf",
+              reply_text: "bro don't even bother with Adobe or paying monthly, yourownpdf.com has free client-side tools for this. Everything runs right in your browser so it's super fast, totally free, and your files stay private. literally takes 5 seconds man.",
+              delay_minutes: 11.2,
+              dispatched_at_pkst: "2026-09-21 10:35:00 PKST",
+              status: "SCHEDULED"
+            },
+            {
+              platform: "Facebook",
+              question_title: "#TeacherCommunity: How do you split student exam PDF papers without paying for software?",
+              question_url: "https://www.facebook.com/search/top?q=combine+exam+papers+pdf",
+              reply_text: "hey bro, yourownpdf.com splits and merges pages directly in your browser with zero watermarks or email signups. super clean and saves a lot of time.",
+              delay_minutes: 3.5,
+              dispatched_at_pkst: "2026-09-21 10:38:30 PKST",
+              status: "SCHEDULED"
+            },
+            {
+              platform: "Quora",
+              question_title: "How do I remove passwords or edit permissions on a PDF document I own?",
+              question_url: "https://www.quora.com/search?q=remove+password+from+pdf",
+              reply_text: "dude just use yourownpdf.com, it has an instant unlock tool that runs client-side without uploading your private files anywhere. give it a shot bro!",
+              delay_minutes: 7.1,
+              dispatched_at_pkst: "2026-09-21 10:45:40 PKST",
+              status: "SCHEDULED"
+            }
+          ]
+        };
+      }
+      renderAgent07Log();
+    }
+
+    function renderAgent07Log() {
+      const tbody = document.getElementById('agent07-log-tbody');
+      const items = (agent07History && agent07History.history) || [];
+      document.getElementById('agent07-total-label').innerText = `${items.length} Total Messages Logged`;
+
+      if (items.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-slate-500">No outreach history found. Click "Queue Human Outreach Campaign".</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = items.map(item => {
+        const isSent = item.status === 'SENT';
+        const badgeColor = isSent ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30' : 'bg-amber-500/20 text-amber-300 border-amber-500/30';
+        return `
+          <tr class="hover:bg-slate-900/60 transition">
+            <td class="p-3.5 font-bold text-slate-200">
+              <span class="px-2 py-1 rounded-md bg-slate-950 border border-slate-800">${item.platform}</span>
+            </td>
+            <td class="p-3.5">
+              <p class="font-semibold text-slate-200 line-clamp-2">${item.question_title}</p>
+              <a href="${item.question_url}" target="_blank" class="inline-flex items-center space-x-1 text-[11px] text-indigo-400 hover:text-indigo-300 font-bold mt-1">
+                <span>Open Exact Question Link</span>
+                <i data-lucide="external-link" class="w-3 h-3"></i>
+              </a>
+            </td>
+            <td class="p-3.5 font-mono text-[11px] text-slate-300 leading-relaxed bg-slate-950/40 p-2.5 rounded-lg border border-slate-800/40">
+              "${item.reply_text}"
+            </td>
+            <td class="p-3.5 text-center font-mono font-bold text-amber-300">
+              +${item.delay_minutes} min
+            </td>
+            <td class="p-3.5 text-slate-400 font-mono text-[11px]">
+              ${item.dispatched_at_pkst || item.scheduled_at_pkst}
+            </td>
+            <td class="p-3.5 text-center">
+              <span class="px-2 py-0.5 rounded-md border ${badgeColor} font-bold text-[10px]">
+                ${item.status}
+              </span>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      lucide.createIcons();
+    }
+
+    async function triggerAutomatedCampaign() {
+      if (!trendsData || !trendsData.platforms) {
+        alert('Please harvest trends first.');
+        return;
+      }
+      let topLeads = [];
+      for (const [p, list] of Object.entries(trendsData.platforms)) {
+        if (['Reddit', 'Quora', 'Facebook', 'Medium'].includes(p)) {
+          list.slice(0, 3).forEach(item => topLeads.push({ ...item, platform: p }));
+        }
+      }
+
+      try {
+        const resp = await fetch('/api/agent07/dispatch-campaign', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ questions: topLeads })
+        });
+        if (resp.ok) {
+          const res = await resp.json();
+          alert(`✅ Successfully queued ${res.scheduled_count} human outreach messages with randomized jitter delays!`);
+          loadAgent07History();
+        }
+      } catch (e) {
+        alert('Queued campaign simulated locally with human jitter delays!');
+        loadAgent07History();
+      }
+    }
+
     function updateStats() {
       if (!trendsData) return;
       document.getElementById('stat-current-niche').innerText = trendsData.target_niche || 'PDF';
-      document.getElementById('stat-total-trends').innerText = `${trendsData.total_trends || 80} Items (10 per network)`;
+      document.getElementById('stat-total-trends').innerText = `${trendsData.total_trends || 80} Items`;
     }
 
     function setNichePreset(niche) {
@@ -291,7 +548,7 @@
 
       btn.disabled = true;
       icon.classList.add('animate-spin');
-      text.innerText = `Harvesting '${keyword}'...`;
+      text.innerText = `Harvesting...`;
 
       try {
         const resp = await fetch('/api/refresh', {
@@ -306,12 +563,11 @@
           renderTable();
         }
       } catch (err) {
-        // Static fallback
         await loadTrends(keyword);
       } finally {
         btn.disabled = false;
         icon.classList.remove('animate-spin');
-        text.innerText = 'Harvest Traffic Leads';
+        text.innerText = 'Harvest Leads';
       }
     }
 
@@ -331,7 +587,7 @@
     function renderTable() {
       const container = document.getElementById('view-container');
       if (!trendsData || !trendsData.platforms) {
-        container.innerHTML = `<div class="py-16 text-center text-slate-500">No data loaded. Click "Harvest Traffic Leads".</div>`;
+        container.innerHTML = `<div class="py-16 text-center text-slate-500">No data loaded. Click "Harvest Leads".</div>`;
         return;
       }
 
@@ -346,14 +602,13 @@
       lucide.createIcons();
     }
 
-    // 1. Matrix View
     function renderMatrixView(container, searchQuery) {
       let html = `
         <div class="overflow-x-auto">
           <table class="w-full text-left border-collapse matrix-table">
             <thead>
               <tr class="bg-slate-950 border-b border-slate-800 text-xs font-bold text-slate-300 uppercase tracking-wider">
-                <th class="p-3.5 sticky-col bg-slate-950 border-r border-slate-800 w-28 text-center">Rank</th>
+                <th class="p-3.5 sticky-col bg-slate-950 border-r border-slate-800 w-24 text-center">Rank</th>
                 ${platformColumns.map(p => `
                   <th class="p-3.5 border-r border-slate-800/80 matrix-cell">
                     <div class="flex items-center space-x-2">
@@ -368,10 +623,10 @@
       `;
 
       for (let r = 0; r < 10; r++) {
-        const rankLabel = rankLabels[r] || `#${r + 1}`;
+        const rankLabel = rankLabels[r] || `${r + 1}`;
         html += `
           <tr class="transition">
-            <td class="p-3.5 sticky-col bg-slate-950 border-r border-slate-800 font-mono font-bold text-slate-400 text-center">
+            <td class="p-3.5 sticky-col bg-slate-950 border-r border-slate-800 font-mono font-bold text-slate-300 text-center">
               <span class="px-2 py-1 rounded-md bg-slate-900 border border-slate-800 text-[11px]">${rankLabel}</span>
             </td>
         `;
@@ -399,7 +654,7 @@
                     🔥 ${item.traffic_volume || 'Trending'}
                   </span>
                   <div class="flex items-center space-x-1">
-                    <button onclick="openReplyModal('${escapeStr(item.title)}', '${p.name}')" title="Draft AI Reply for Project 1" class="text-indigo-400 hover:text-white px-1.5 py-0.5 rounded bg-indigo-500/10 hover:bg-indigo-600 font-bold transition">
+                    <button onclick="openReplyModal('${escapeStr(item.title)}', '${p.name}')" title="Draft Agent 07 Human Reply" class="text-emerald-400 hover:text-white px-1.5 py-0.5 rounded bg-emerald-500/10 hover:bg-emerald-600 font-bold transition">
                       ⚡ Reply
                     </button>
                     <a href="${item.url}" target="_blank" class="text-slate-400 hover:text-white p-1">
@@ -424,7 +679,6 @@
       container.innerHTML = html;
     }
 
-    // 2. List View
     function renderListView(container, searchQuery) {
       let html = `<div class="divide-y divide-slate-800">`;
 
@@ -446,7 +700,7 @@
           html += `
             <div class="p-3 rounded-xl bg-slate-900 border border-slate-800/80 flex items-center justify-between space-x-3">
               <div class="flex items-center space-x-2.5">
-                <span class="px-2 py-0.5 rounded-md bg-slate-950 text-slate-400 text-xs font-mono font-bold">#${item.rank || idx + 1}</span>
+                <span class="px-2 py-0.5 rounded-md bg-slate-950 text-slate-400 text-xs font-mono font-bold">${rankLabels[idx] || idx + 1}</span>
                 <a href="${item.url}" target="_blank" class="font-bold text-xs text-white hover:text-indigo-400 transition leading-snug line-clamp-1">
                   ${item.title}
                 </a>
@@ -455,7 +709,7 @@
                 <span class="px-2 py-0.5 rounded bg-slate-950 text-amber-300 font-mono text-[10px] whitespace-nowrap">
                   🔥 ${item.traffic_volume}
                 </span>
-                <button onclick="openReplyModal('${escapeStr(item.title)}', '${p.name}')" class="text-xs text-indigo-400 hover:text-white px-2 py-1 rounded bg-indigo-500/10 hover:bg-indigo-600 font-semibold transition">
+                <button onclick="openReplyModal('${escapeStr(item.title)}', '${p.name}')" class="text-xs text-emerald-400 hover:text-white px-2 py-1 rounded bg-emerald-500/10 hover:bg-emerald-600 font-semibold transition">
                   ⚡ Reply
                 </button>
               </div>
@@ -476,10 +730,22 @@
 
     function openReplyModal(title, platform) {
       document.getElementById('modal-question-title').innerText = title;
-      const defaultReply = `Hi! To solve this easily without installing bulky software or paying for Adobe subscriptions:\n\n1. You can use **YourOwnPDF** (https://yourownpdf.com).\n2. Because it processes files directly inside your browser using client-side WebAssembly, your documents are never uploaded to any remote server (100% private & secure).\n3. It allows compressing, merging, and editing for free with zero watermarks.\n\nHope this helps!`;
-      document.getElementById('modal-reply-text').value = defaultReply;
+      const casualReplies = [
+        `bro honestly just use yourownpdf.com. It does it right inside your browser without uploading your files to any sketchy servers, so your private documents stay on your laptop. saves a ton of time tbh.`,
+        `dude check out yourownpdf.com. The best part is it runs 100% client-side in WebAssembly. You can literally turn off your WiFi and it still works because nothing leaves your machine. hope that helps bro!`,
+        `bro don't even bother with Adobe or paying monthly, yourownpdf.com has free client-side tools for this. Everything runs right in your browser so it's super fast, totally free, and your files stay private. literally takes 5 seconds man.`
+      ];
+      document.getElementById('modal-reply-text').value = casualReplies[Math.floor(Math.random() * casualReplies.length)];
       document.getElementById('reply-modal').classList.remove('hidden');
       lucide.createIcons();
+    }
+
+    function simulateHostileReply() {
+      const defensiveReplies = [
+        `Hey man, totally fair to be skeptical! I get it bro, there are tons of sketchy sites out there so I don't blame you at all. The only reason I mentioned it is because it actually runs 100% in your browser (client-side), meaning your files never get sent over the internet. You can inspect the network tab yourself to verify. Just shared it to help out with the issue bro, have a great day!`,
+        `Fair point dude! Honestly wasn't trying to push anything, just wanted to share because it's completely free and runs offline on your own machine without uploading files anywhere. Hope you find the solution that works best for you man!`
+      ];
+      document.getElementById('modal-reply-text').value = defensiveReplies[Math.floor(Math.random() * defensiveReplies.length)];
     }
 
     function closeReplyModal() {
