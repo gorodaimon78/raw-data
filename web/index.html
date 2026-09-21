@@ -283,15 +283,12 @@
 
           html += `
             <td class="p-3.5 border-r border-slate-800/60 align-top matrix-cell ${highlightClass}">
-              <div class="flex flex-col justify-between h-full space-y-2">
+              <div class="flex flex-col justify-between h-full space-y-2.5">
                 <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="font-bold text-slate-100 hover:text-indigo-400 transition leading-snug line-clamp-2" title="${item.title}">
                   ${item.title}
                 </a>
-                <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed">
-                  ${item.description || ''}
-                </p>
                 <div class="pt-1.5 flex items-center justify-between border-t border-slate-800/50 text-[10px]">
-                  <span class="px-1.5 py-0.5 rounded bg-slate-900 text-amber-300 font-mono font-medium truncate max-w-[130px]">
+                  <span class="px-2 py-0.5 rounded bg-slate-900 text-amber-300 font-mono font-medium truncate max-w-[170px]">
                     🔥 ${item.traffic_volume || 'Trending'}
                   </span>
                   <a href="${item.url}" target="_blank" class="text-indigo-400 hover:text-indigo-300 flex items-center space-x-0.5 font-semibold">
@@ -336,18 +333,15 @@
           if (!matches) return;
 
           html += `
-            <div class="p-3 rounded-xl bg-slate-900 border border-slate-800/80 flex items-start justify-between space-x-3">
-              <div class="flex items-start space-x-2.5">
+            <div class="p-3 rounded-xl bg-slate-900 border border-slate-800/80 flex items-center justify-between space-x-3">
+              <div class="flex items-center space-x-2.5">
                 <span class="px-2 py-0.5 rounded-md bg-slate-950 text-slate-400 text-xs font-mono font-bold">#${item.rank || idx + 1}</span>
-                <div>
-                  <a href="${item.url}" target="_blank" class="font-bold text-xs text-white hover:text-indigo-400 transition leading-snug">
-                    ${item.title}
-                  </a>
-                  <p class="text-[11px] text-slate-400 mt-1 line-clamp-1">${item.description || ''}</p>
-                </div>
+                <a href="${item.url}" target="_blank" class="font-bold text-xs text-white hover:text-indigo-400 transition leading-snug line-clamp-1">
+                  ${item.title}
+                </a>
               </div>
               <span class="px-2 py-0.5 rounded bg-slate-950 text-amber-300 font-mono text-[10px] whitespace-nowrap">
-                ${item.traffic_volume}
+                🔥 ${item.traffic_volume}
               </span>
             </div>
           `;
